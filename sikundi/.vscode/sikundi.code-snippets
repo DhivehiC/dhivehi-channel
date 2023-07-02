@@ -1,0 +1,124 @@
+{
+	// Place your sikundi workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
+	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
+	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
+	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
+	// Placeholders with the same ids are connected.
+	// Example:
+	"create a next page": {
+		"scope": "javascript,typescript, javascriptreact, typescriptreact",
+		"prefix": "create-next-page",
+		"body": [
+			"import { GetServerSideProps } from 'next'",
+			"import { Fragment, ReactElement } from 'react'",
+			"import type { NextPageWithLayout } from '.$0/_app'",
+			"",
+			"interface Props {}",
+			"",
+			"const Page: NextPageWithLayout<Props> = () => {",
+				"\treturn (",
+					"\t\t<Fragment>",
+					"\t\t\t",
+					"\t\t</Fragment>",
+				"\t)",
+			"}",
+			"",
+			"Page.getLayout = function getLayout(page: ReactElement) {",
+				"\treturn (",
+					"\t\t<Fragment>",
+					"\t\t\t",		
+					"\t\t</Fragment>",
+				"\t)",
+			"}",
+			"",
+			"export const getServerSideProps: GetServerSideProps = async (ctx) => {",
+				"\t",
+				"\treturn {",
+					"\t\tprops: {",
+						"\t\t\t",		
+					"\t\t}",
+				"\t}",
+			"}",
+			"",
+			"export default Page",
+		],
+		"description": "create a template for next js page"
+	},
+	"create a react ref component": {
+		"scope": "javascript,typescript, javascriptreact, typescriptreact",
+		"prefix": "create-react-ref-component",
+		"body": [
+			"import React, { forwardRef, Fragment, useImperativeHandle, useRef } from 'react'",
+			"import { twMerge } from 'tailwind-merge'",
+			"",
+			"interface Props {",
+				"\t",
+			"}",
+			"",
+			"const $TM_FILENAME_BASE = forwardRef((props, ref) => {",
+				"\tconst localRef = useRef<any>(null)",
+				"\tuseImperativeHandle(ref, ()=> localRef.current)",
+				"\tconst styles = twMerge([",
+					"\t\t",
+					"\t\t// props.className && props.className",
+				"\t])",
+				"",
+				"\treturn (",
+					"\t\t<Fragment>",
+						"\t\t\t$1",
+					"\t\t</Fragment>",
+				"\t)",
+			"})",
+			"",
+			"$TM_FILENAME_BASE.displayName = '$TM_FILENAME_BASE'",
+			"",
+			"export default $TM_FILENAME_BASE"
+		],
+		"description": "create a template for react js ref component"
+	},
+	"create a react component": {
+		"scope": "javascript,typescript, javascriptreact, typescriptreact",
+		"prefix": "create-react-component",
+		"body": [
+			"import React, { FC, Fragment } from 'react'",
+			"",
+			"interface Props {",
+				"\t",
+			"}",
+			"",
+			"const $TM_FILENAME_BASE:FC<Props> = (props) => {",
+				"\treturn (",
+					"\t\t<Fragment>",
+						"\t\t\t",
+					"\t\t</Fragment>",
+				"\t)",
+			"}",
+			"",
+			"export default $TM_FILENAME_BASE"
+		],
+		"description": "create a template for react js component"
+	},
+	"create a next layout": {
+		"scope": "javascript,typescript, javascriptreact, typescriptreact",
+		"prefix": "create-next-layout",
+		"body": [
+			"import React, { FC, Fragment, ReactNode } from 'react'",
+			"",
+			"interface Props {",
+				"\tchildren?: ReactNode",
+			"}",
+			"",
+			"const $TM_FILENAME_BASE:FC<Props> = (props) => {",
+				"\treturn (",
+					"\t\t<Fragment>",
+						"\t\t\t{props.children}",
+					"\t\t</Fragment>",
+				"\t)",
+			"}",
+			"",
+			"export default $TM_FILENAME_BASE"
+		],
+		"description": "create a template for next js layout"
+	},
+}

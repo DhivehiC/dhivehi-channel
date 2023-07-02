@@ -1,0 +1,205 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["filteredRelationCount"]
+}
+
+datasource db {
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+enum Models {
+  Users
+  Posts
+}
+
+enum userStatus {
+  active
+  banned
+}
+
+enum userRoles {
+  writers
+  editors
+  admins
+}
+
+model Logs {
+  id                 Int      @id @default(autoincrement())
+  model              Models?
+  new_data           Json?
+  old_data           Json?
+  action             String
+  created_at         DateTime @default(now())
+  created_by_user_id Int
+  created_by         Users    @relation(name: "logs_created", fields: [created_by_user_id], references: [id])
+}
+
+model Users {
+  id                 Int            @id @default(autoincrement())
+  first_name         String
+  last_name          String
+  user_name          String
+  email              String         @unique
+  password           String
+  status             userStatus     @default(active)
+  role               userRoles      @default(editors)
+  created_at         DateTime       @default(now())
+  posts_created      Posts[]        @relation(name: "posts_created")
+  categories_created Categories[]   @relation(name: "categories_created")
+  tags_created       Tags[]         @relation(name: "tags_created")
+  logs_created       Logs[]         @relation(name: "logs_created")
+  medias_created     MediaLibrary[] @relation(name: "media_created")
+  comments_published Comments[]     @relation(name: "comments_published")
+
+  @@index([email])
+}
+
+model Posts {
+  id                    Int           @id @default(autoincrement())
+  title                 String
+  latin_title           String
+  long_title            String
+  description           String
+  yt_url                String?
+  content               String
+  breaking              Boolean?
+  live_blog             Boolean?
+  feature_image_id      Int?
+  feature_image         MediaLibrary? @relation(name: "feature_image", fields: [feature_image_id], references: [id], onDelete: SetNull)
+  feature_image_caption String?
+  comments              Comments[]    @relation(name: "post_comment")
+  category_id           Int
+  category              Categories    @relation(name: "CategoriesToPost", fields: [category_id], references: [id])
+  post_tags             PostsToTags[] @relation(name: "posts_tags")
+  view_counts           ViewCount[]   @relation(name: "post_view_count")
+  total_view_count      Int           @default(0)
+  created_at            DateTime      @default(now())
+  published_at          DateTime?
+  deleted_at            DateTime?
+  updated_by            Json?
+  created_by_user_id    Int
+  created_by            Users         @relation(name: "posts_created", fields: [created_by_user_id], references: [id])
+
+  @@index([id, created_at(sort: Desc)])
+}
+
+model ViewCount {
+  id         Int      @id @default(autoincrement())
+  post_id    Int?
+  post       Posts?   @relation(name: "post_view_count", references: [id], fields: [post_id])
+  count      Int      @default(0)
+  created_at DateTime @default(now()) @db.Date
+}
+
+model Comments {
+  id                   Int       @id @default(autoincrement())
+  content              String
+  created_by           String
+  post_id              Int
+  post                 Posts     @relation(name: "post_comment", fields: [post_id], references: [id])
+  created_at           DateTime  @default(now())
+  published_at         DateTime?
+  deleted_at           DateTime?
+  published_by_user_id Int?
+  published_by         Users?    @relation(name: "comments_published", fields: [published_by_user_id], references: [id])
+
+  @@index([id])
+}
+
+model Categories {
+  id                 Int       @id @default(autoincrement())
+  title              String    @unique
+  latin_title        String    @unique
+  posts              Posts[]   @relation(name: "CategoriesToPost")
+  created_at         DateTime  @default(now())
+  published_at       DateTime?
+  deleted_at         DateTime?
+  created_by_user_id Int
+  created_by         Users     @relation(name: "categories_created", fields: [created_by_user_id], references: [id])
+
+  @@index([latin_title, created_at(sort: Desc)])
+}
+
+model Tags {
+  id                 Int           @id @default(autoincrement())
+  title              String        @unique
+  latin_title        String        @unique
+  created_at         DateTime      @default(now())
+  published_at       DateTime?     @default(now())
+  deleted_at         DateTime?
+  post_tags          PostsToTags[] @relation(name: "tags_posts")
+  created_by_user_id Int
+  created_by         Users         @relation(name: "tags_created", fields: [created_by_user_id], references: [id])
+
+  @@index([latin_title, created_at(sort: Desc)])
+}
+
+model PostsToTags {
+  id      Int    @id @default(autoincrement())
+  post_id Int?
+  post    Posts? @relation(name: "posts_tags", fields: [post_id], references: [id], onDelete: Cascade)
+  tag_id  Int?
+  tag     Tags?  @relation(name: "tags_posts", fields: [tag_id], references: [id], onDelete: Cascade)
+
+  @@index([id])
+}
+
+model MediaLibrary {
+  id                 Int      @id @default(autoincrement())
+  caption            String?
+  tags               String?
+  base64             String?
+  url                String   @unique
+  posts              Posts[]  @relation(name: "feature_image")
+  created_by_user_id Int
+  created_by         Users    @relation(name: "media_created", fields: [created_by_user_id], references: [id])
+  created_at         DateTime @default(now())
+
+  @@index([url, created_at(sort: Desc)])
+}
+
+model Poll {
+  id          Int      @id @default(autoincrement())
+  phone       Int      @unique
+  nasheedVote Boolean  @default(false)
+  solihVote   Boolean  @default(false)
+  tries       Int      @default(1)
+  otp         Int
+  verified_at DateTime?
+}
+
+model Atolls {
+  id          Int       @id @default(autoincrement())
+  name        String    @unique
+  islands     Islands[] @relation(name: "atolls_island")
+  created_at  DateTime  @default(now())
+}
+
+model Islands {
+  id          Int         @id @default(autoincrement())
+  name        String      
+  atoll_id    Int
+  atoll       Atolls      @relation(name: "atolls_island", fields: [atoll_id], references: [id])
+  boxes       voteBoxes[] @relation(name: "island_box")
+  created_at  DateTime    @default(now())
+}
+
+model voteBoxes {
+  id          Int      @id @default(autoincrement())
+  box_number  String   @unique
+  name        String
+  island_id   Int
+  island      Islands  @relation(name: "island_box", fields: [island_id], references: [id])
+  eligible    Int?
+  no_show     Int?
+  void        Int?
+  ibu         Int?
+  anni        Int?
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now())
+}

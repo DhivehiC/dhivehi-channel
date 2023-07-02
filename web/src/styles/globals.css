@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*::selection {
+    @apply bg-primary text-white;
+}
+
+@layer components {
+    .carousel::-webkit-scrollbar {
+        height: 0;
+    }
+}

@@ -1,0 +1,190 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    @font-face {
+        font-family: 'Inter';
+        src: url('../public/fonts/dhivehi/MV_Faseyha.woff2');
+        font-weight: 100;
+        font-display: swap;
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'Inter';
+        src: url('../public/fonts/inter/Inter-Thin.woff2');
+        font-weight: 100;
+        font-display: swap;
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'Inter';
+        src: url('../public/fonts/dhivehi/MV_Faseyha.woff2');
+        font-weight: 200;
+        font-display: swap;
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'Inter';
+        src: url('../public/fonts/inter/Inter-ExtraLight.woff2');
+        font-weight: 200;
+        font-display: swap;
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'Inter';
+        src: url('../public/fonts/dhivehi/MV_Faseyha.woff2');
+        font-weight: 300;
+        font-display: swap;
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'Inter';
+        src: url('../public/fonts/inter/Inter-Light.woff2');
+        font-weight: 300;
+        font-display: swap;
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'Inter';
+        src: url('../public/fonts/dhivehi/MV_Faseyha.woff2');
+        font-weight: 400;
+        font-display: swap;
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'Inter';
+        src: url('../public/fonts/inter/Inter-Regular.woff2');
+        font-weight: 400;
+        font-display: swap;
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'Inter';
+        src: url('../public/fonts/dhivehi/MV_Faseyha.woff2');
+        font-weight: 500;
+        font-display: swap;
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'Inter';
+        src: url('../public/fonts/inter/Inter-Medium.woff2');
+        font-weight: 500;
+        font-display: swap;
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'Inter';
+        src: url('../public/fonts/dhivehi/MVWaheed.woff2');
+        font-weight: 600;
+        font-display: swap;
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'Inter';
+        src: url('../public/fonts/inter/Inter-SemiBold.woff2');
+        font-weight: 600;
+        font-display: swap;
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'Inter';
+        src: url('../public/fonts/dhivehi/MVWaheed.woff2');
+        font-weight: 700;
+        font-display: swap;
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'Inter';
+        src: url('../public/fonts/inter/Inter-Bold.woff2');
+        font-weight: 700;
+        font-display: swap;
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'Inter';
+        src: url('../public/fonts/dhivehi/MVWaheed.woff2');
+        font-weight: 800;
+        font-display: swap;
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'Inter';
+        src: url('../public/fonts/inter/Inter-ExtraBold.woff2');
+        font-weight: 800;
+        font-display: swap;
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'Inter';
+        src: url('../public/fonts/dhivehi/MVWaheed.woff2');
+        font-weight: 900;
+        font-display: swap;
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'Inter';
+        src: url('../public/fonts/inter/Inter-Black.woff2');
+        font-weight: 900;
+        font-display: swap;
+        font-style: normal;
+    }
+    html {
+        font-family: Inter, sans-serif;
+    }
+}
+
+body {
+    @apply bg-background
+}
+
+.editor {
+    @apply max-w-full
+}
+.editor h1 {
+    @apply text-5xl mb-5
+}
+.editor h2 {
+    @apply text-4xl mb-5
+}
+.editor h3 {
+    @apply text-3xl mb-5
+}
+.editor h4 {
+    @apply text-2xl mb-5
+}
+.editor h5 {
+    @apply text-xl mb-5
+}
+.editor h6 {
+    @apply text-lg mb-5
+}
+.editor p {
+    @apply text-base mb-2 leading-relaxed
+}
+.editor a {
+    @apply text-base text-primary mb-2 leading-relaxed
+}
+.editor img {
+    @apply block bg-secondary w-1/2 min-h-[100px]
+}
+
+.editor ul {
+    @apply list-disc pr-5 mb-2
+}
+.editor ol {
+    @apply list-decimal pr-5 mb-2
+}
+.editor blockquote {
+    @apply border-r-4 pr-3 border-r-primary mb-2 block
+}
+
+.editor::-webkit-scrollbar {
+    @apply w-2;
+}  
+.editor::-webkit-scrollbar-track {
+    @apply bg-accent;
+}
+.editor::-webkit-scrollbar-thumb {
+    @apply bg-secondary;
+}
