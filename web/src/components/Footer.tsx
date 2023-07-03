@@ -14,9 +14,18 @@ const Footer:FC<Props> = (props) => {
                 <div className='lg:col-span-8 col-span-12'>
                     <h1 className='text-accent text-2xl font-bold mb-4 text-center lg:text-start'>{"ސޯޝަލް މީޑިއާ"}</h1>
                     <div className='flex gap-6 justify-center lg:justify-start'>
-                        {[FaFacebook, FaTwitter, FaInstagram, FaWhatsapp, FaViber].map((Component, index)=>(
-                            <Link href={"/"} key={index} className='hover:opacity-75 active:opacity-50'>
-                                <Component className='text-accent text-2xl' />
+                        {[
+                            {
+                                Icon: FaFacebook,
+                                url: "https://www.facebook.com/DhivehiChannel"
+                            }, 
+                            {
+                                Icon: FaTwitter,
+                                url: "https://twitter.com/DhivehiChannel"
+                            }
+                        ].map((Item, index)=>(
+                            <Link href={Item.url} key={index} className='hover:opacity-75 active:opacity-50'>
+                                <Item.Icon className='text-accent text-2xl' />
                             </Link>
                         ))}
                     </div>
