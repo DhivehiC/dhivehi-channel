@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(fileUpload());
-app.use(cors());
+app.use(cors('*'));
 
 function checkAPIKey(req, res, next) {
     const apiKey = req.headers['api-key'];
