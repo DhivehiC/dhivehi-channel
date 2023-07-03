@@ -9,6 +9,7 @@ import FeatureCategoryBlock, { FeatureCategoryBlockProps } from '@DhivehiChannel
 import FeaturePostBlock, { FeaturePostBlockProps } from '@DhivehiChannel/components/blocks/FeaturePostBlock'
 import { extractVideoId } from '@DhivehiChannel/libs/youtube'
 import Hashids from 'hashids'
+import axios from 'axios'
 
 const index:NextPage<Props> = (props) => {
     return (
@@ -58,7 +59,12 @@ export default index
 
 export const getServerSideProps:GetServerSideProps<Props> = async (ctx) => {
     const hashids = new Hashids()
-    const posts = await (await fetch(`${process.env.BACKEND_URL}`)).json()
+    const posts = (await axios.get(`${process.env.BACKEND_URL}`, {
+        method: "get",
+        headers: {
+            authorization: `Bearer ${process.env.FRONTEND_TOKEN}`
+        }
+    })).data
 
     const blocks:block[] = [
         {
