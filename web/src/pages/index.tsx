@@ -120,7 +120,7 @@ export const getServerSideProps:GetServerSideProps<Props> = async (ctx) => {
             block_name: "feature_post_block",
             title: "މި އަހަރުގެ އެންމެ މަގުބޫލި ޕްރޯގްރާމްތަށް",
             sub_title: "އެންމެ ފަހު 30 ދުވަސް",
-            post: (posts?.topPost?.map((post:any)=>({
+            post: (posts?.mediumPost?.map((post:any)=>({
                 title: post?.title,
                 category: post?.category,
                 comments: post?._count?.comments,
@@ -184,7 +184,7 @@ export const getServerSideProps:GetServerSideProps<Props> = async (ctx) => {
 
     return { 
         props: {
-            blocks: blocks
+            blocks: JSON.parse(JSON.stringify(blocks))
         }
     }
 }
