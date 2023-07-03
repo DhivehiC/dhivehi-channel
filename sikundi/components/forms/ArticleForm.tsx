@@ -322,11 +322,11 @@ const ArticleForm:FC<Props> = (props) => {
                     />
                     <Label htmlFor='yt_url'>Youtube Link</Label>
                     <Input 
-                        id='yt_url' placeholder='Youtube Link' type={'url'}  required
+                        id='yt_url' placeholder='Youtube Link' type={'url'}
                         defaultValue={props.data?.yt_url}
                         errors={errors?.yt_url}
                         {...register('yt_url', {
-                            required: true
+                            required: false
                         })}
                     />
                     <Label htmlFor='Author'>Author</Label>

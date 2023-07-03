@@ -50,7 +50,7 @@ interface inputsSchema {
     latin_title:string
     long_title:string
     description:string
-    yt_url:string
+    yt_url?:string
     content:string
     category:string
     feature_image?: string
