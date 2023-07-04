@@ -93,6 +93,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                             latin_title: true
                         }
                     },
+                    _count: {
+                        select: {
+                            comments: true
+                        }
+                    },
                     yt_url: true,
                     feature_image: {
                         select: {

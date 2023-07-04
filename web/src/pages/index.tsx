@@ -66,7 +66,7 @@ export const getServerSideProps:GetServerSideProps<Props> = async (ctx) => {
         }
     })).data
 
-    const blocks:block[] = [
+    const blocks:block[] = switchLastWithSecondLast([
         {
             block_name: "feature_block",
             posts: posts?.bigPost?.map((post:any)=>({
@@ -118,21 +118,6 @@ export const getServerSideProps:GetServerSideProps<Props> = async (ctx) => {
                 published_at: post?.published_at,
                 url: `/${hashids.encode(post?.id)}`
             })) || []
-        },
-        {
-            block_name: "feature_post_block",
-            title: "މި އަހަރުގެ އެންމެ މަގުބޫލި ޕްރޯގްރާމްތަށް",
-            sub_title: "އެންމެ ފަހު 30 ދުވަސް",
-            post: (posts?.mediumPost?.map((post:any)=>({
-                title: post?.title,
-                category: post?.category?.title,
-                comments: post?._count?.comments,
-                feature_image: post?.feature_image?.url || `https://img.youtube.com/vi/${extractVideoId(String(post?.yt_url))}/maxresdefault.jpg`,
-                feature_image_alt: `https://img.youtube.com/vi/${extractVideoId(String(post?.yt_url))}/default.jpg`,
-                description: post?.description,
-                published_at: post?.published_at,
-                url: `/${hashids.encode(post?.id)}`
-            })))?.[0] || null
         },
         ...(posts?.postsByCategory?.map((category:any, index:number)=>{
             if (index % 2 === 0) {
@@ -186,7 +171,22 @@ export const getServerSideProps:GetServerSideProps<Props> = async (ctx) => {
                 }))) || []
             })
         }) || []),
-    ]
+        {
+            block_name: "feature_post_block",
+            title: "މި އަހަރުގެ އެންމެ މަގުބޫލި ޕްރޯގްރާމްތަށް",
+            sub_title: "އެންމެ ފަހު 30 ދުވަސް",
+            post: (posts?.mediumPost?.map((post:any)=>({
+                title: post?.title,
+                category: post?.category?.title,
+                comments: post?._count?.comments,
+                feature_image: post?.feature_image?.url || `https://img.youtube.com/vi/${extractVideoId(String(post?.yt_url))}/maxresdefault.jpg`,
+                feature_image_alt: `https://img.youtube.com/vi/${extractVideoId(String(post?.yt_url))}/default.jpg`,
+                description: post?.description,
+                published_at: post?.published_at,
+                url: `/${hashids.encode(post?.id)}`
+            })))?.[0] || null
+        },
+    ])
 
     return { 
         props: {
@@ -199,4 +199,17 @@ type block = AdCategoryBlockProps | CarouselBlockProps | CategoryBlockProps | Fe
 
 interface Props {
     blocks: block[]
+}
+
+function switchLastWithSecondLast(arr:any[]) {
+    if (arr.length < 2) {
+        return arr;
+    }
+  
+    const lastIndex = arr.length - 1;
+    const temp = arr[lastIndex];
+    arr[lastIndex] = arr[lastIndex - 1];
+    arr[lastIndex - 1] = temp;
+  
+    return arr;
 }
