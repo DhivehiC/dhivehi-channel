@@ -127,10 +127,26 @@ const WYSIWYG = forwardRef((props:Props, ref) => {
                 }} onPaste={(e)=>{
                     e.preventDefault()
                     if (e.clipboardData.getData('text').startsWith('https://twitter.com/')) {
-                        fetch(`/api/other/twitter-embed?url=${e.clipboardData.getData('text')}`, {
+                        // fetch(`/api/other/twitter-embed?url=${e.clipboardData.getData('text')}`, {
+                        //     method: "GET",
+                        // }).then(async (res)=>{
+                        //     const url = await res.json()
+                        //     document.execCommand('insertHTML', false, url.html)
+                        //     setTimeout(()=>{
+                        //         document.execCommand('selectAll', false)
+                        //         document?.getSelection()?.collapseToEnd()
+                        //         document.execCommand('insertParagraph',false)
+                        //         document.execCommand('formatBlock', false, '<p>')
+                        //     }, 50)
+                        // }).catch((e)=>{
+                        //     console.log(e)
+                        // })
+
+                        fetch(`https://publish.twitter.com/oembed?url=${e.clipboardData.getData('text')}`, {
                             method: "GET",
-                        }).then(async (res)=>{
-                            const url = await res.json()
+                            mode: "no-cors"
+                        }).then(async (resp)=>{
+                            const url = await resp.json()
                             document.execCommand('insertHTML', false, url.html)
                             setTimeout(()=>{
                                 document.execCommand('selectAll', false)
