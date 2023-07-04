@@ -74,6 +74,7 @@ export const getServerSideProps:GetServerSideProps<Props> = async (ctx) => {
                 category: post?.category?.title,
                 comments: post?._count?.comments,
                 feature_image: post?.feature_image?.url || `https://img.youtube.com/vi/${extractVideoId(String(post?.yt_url))}/maxresdefault.jpg`,
+                feature_image_alt: `https://img.youtube.com/vi/${extractVideoId(String(post?.yt_url))}/default.jpg`,
                 description: post?.description,
                 published_at: post?.published_at,
                 url: `/${hashids.encode(post?.id)}`
@@ -97,6 +98,7 @@ export const getServerSideProps:GetServerSideProps<Props> = async (ctx) => {
                 category: post?.category,
                 comments: post?._count?.comments,
                 feature_image: post?.feature_image?.url || `https://img.youtube.com/vi/${extractVideoId(String(post?.yt_url))}/maxresdefault.jpg`,
+                feature_image_alt: `https://img.youtube.com/vi/${extractVideoId(String(post?.yt_url))}/default.jpg`,
                 description: post?.description,
                 published_at: post?.published_at,
                 url: `/${hashids.encode(post?.id)}`
@@ -111,6 +113,7 @@ export const getServerSideProps:GetServerSideProps<Props> = async (ctx) => {
                 category: post?.category,
                 comments: post?._count?.comments,
                 feature_image: post?.feature_image?.url || `https://img.youtube.com/vi/${extractVideoId(String(post?.yt_url))}/maxresdefault.jpg`,
+                feature_image_alt: `https://img.youtube.com/vi/${extractVideoId(String(post?.yt_url))}/default.jpg`,
                 description: post?.description,
                 published_at: post?.published_at,
                 url: `/${hashids.encode(post?.id)}`
@@ -125,6 +128,7 @@ export const getServerSideProps:GetServerSideProps<Props> = async (ctx) => {
                 category: post?.category,
                 comments: post?._count?.comments,
                 feature_image: post?.feature_image?.url || `https://img.youtube.com/vi/${extractVideoId(String(post?.yt_url))}/maxresdefault.jpg`,
+                feature_image_alt: `https://img.youtube.com/vi/${extractVideoId(String(post?.yt_url))}/default.jpg`,
                 description: post?.description,
                 published_at: post?.published_at,
                 url: `/${hashids.encode(post?.id)}`
@@ -150,6 +154,7 @@ export const getServerSideProps:GetServerSideProps<Props> = async (ctx) => {
                         category: post?.category,
                         comments: post?._count?.comments,
                         feature_image: post?.feature_image?.url || `https://img.youtube.com/vi/${extractVideoId(String(post?.yt_url))}/maxresdefault.jpg`,
+                        feature_image_alt: `https://img.youtube.com/vi/${extractVideoId(String(post?.yt_url))}/default.jpg`,
                         description: post?.description,
                         published_at: post?.published_at,
                         url: `/${hashids.encode(post?.id)}`
@@ -174,6 +179,7 @@ export const getServerSideProps:GetServerSideProps<Props> = async (ctx) => {
                     category: post?.category,
                     comments: post?._count?.comments,
                     feature_image: post?.feature_image?.url || `https://img.youtube.com/vi/${extractVideoId(String(post?.yt_url))}/maxresdefault.jpg`,
+                    feature_image_alt: `https://img.youtube.com/vi/${extractVideoId(String(post?.yt_url))}/default.jpg`,
                     description: post?.description,
                     published_at: post?.published_at,
                     url: `/${hashids.encode(post?.id)}`

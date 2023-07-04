@@ -1,16 +1,19 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import 'dayjs/locale/dv'
 
 const FeatureCard:FC<FeatureCardProps> = (props) => {
+    const [url, setUrl] = useState(props.feature_image)
     dayjs.extend(relativeTime)
     return (
-        <Link href={props?.url} className='group aspect-[4/5] lg:min-w-[calc(25%-12px)] md:min-w-[calc(50%-12px)] min-w-[calc(100%-12px)]'>
+        <Link href={props.url} className='group aspect-[4/5] lg:min-w-[calc(25%-12px)] md:min-w-[calc(50%-12px)] min-w-[calc(100%-12px)]'>
             <div className={'w-full h-full relative rounded-lg overflow-hidden lg:mb-2'}>
-                <Image src={props.feature_image} alt={props.title} fill className='object-cover group-hover:scale-110 transition-all' />
+                <Image src={url} alt={props.title} fill className='object-cover group-hover:scale-110 transition-all' onError={()=>{
+                    setUrl(props.feature_image_alt)
+                }} />
                 <span className='w-full h-full bg-gradient-to-b from-black to-[#00000010] absolute opacity-50' />
             </div>
             <h1 className='text-primary text-center font-bold text-xl line-clamp-1 leading-loose'>{props.title}</h1>
@@ -30,6 +33,7 @@ export interface FeatureCardProps {
     published_at: string,
     comments: number,
     feature_image: string,
+    feature_image_alt: string,
     url: string,
     className?: string
     featureImageClassName?: string
