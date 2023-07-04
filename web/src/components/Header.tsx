@@ -4,28 +4,35 @@ import { twMerge } from 'tailwind-merge'
 import { HiMagnifyingGlass, HiOutlineTv, HiMagnifyingGlassCircle, HiXMark } from 'react-icons/hi2'
 import Button from './Button'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 const Header:FC<Props> = (props) => {
     const [searchBar, setSearchBar] = useState(false)
     const [isScrolledToTop, setIsScrolledToTop] = useState(true)
-  
-    useEffect(() => {
-        const handleScroll = () => {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop
-    
-            if (scrollTop === 0) {
-                setIsScrolledToTop(true)
-            } else {
-                setIsScrolledToTop(false)
+    const router = useRouter()
+
+    useEffect(()=>{
+        if (router.pathname === "/") {
+            setIsScrolledToTop(true)
+            const handleScroll = () => {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop
+        
+                if (scrollTop === 0) {
+                    setIsScrolledToTop(true)
+                } else {
+                    setIsScrolledToTop(false)
+                }
             }
+        
+            window.addEventListener('scroll', handleScroll)
+        
+            return () => {
+                window.removeEventListener('scroll', handleScroll)
+            }
+        } else {
+            setIsScrolledToTop(false)
         }
-    
-        window.addEventListener('scroll', handleScroll)
-    
-        return () => {
-            window.removeEventListener('scroll', handleScroll)
-        }
-    }, [])
+    }, [router.pathname, router.query])
 
     return (
         <header className={twMerge([

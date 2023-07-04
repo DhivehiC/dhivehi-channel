@@ -110,7 +110,7 @@ export default function App({ Component, pageProps }: AppProps) {
             <Header className={inter.className} />
             <main className={twMerge([
                 inter.className,
-                'min-h-screen w-full'
+                'min-h-screen w-full mt-[100px]'
             ])}>
                 <Component {...pageProps} />
             </main>

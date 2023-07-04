@@ -1,8 +1,9 @@
-import React, { Fragment } from 'react'
+import React, { FC, Fragment } from 'react'
+import { twMerge } from 'tailwind-merge'
 
-const AdCard = () => {
+const AdCard:FC<Props> = (props) => {
     return (
-        <div className='sticky top-[100px]'>
+        <div className={twMerge(['sticky top-[100px]', props?.className])}>
             <div className='bg-accent w-full aspect-[8/10] lg:max-w-xs mr-auto overflow-hidden rounded-lg'>
 
             </div>
@@ -12,3 +13,7 @@ const AdCard = () => {
 }
 
 export default AdCard
+
+interface Props {
+    className?: string
+}

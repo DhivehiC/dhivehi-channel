@@ -5,6 +5,8 @@ import Hashids from 'hashids'
 import axios from 'axios'
 import Image from 'next/image'
 import { extractVideoId } from '@DhivehiChannel/libs/youtube'
+import RichText from '@DhivehiChannel/components/blocks/RichText'
+import AdCard from '@DhivehiChannel/components/cards/AdCard'
 
 const index:NextPage<Props> = (props) => {
     return (
@@ -18,15 +20,26 @@ const index:NextPage<Props> = (props) => {
                     { url: props?.article?.feature_image?.url }
                 ]
             }} twitter={{ cardType: "summary_large_image" }} />
-            <div className='container px-4 mx-auto'>
-                <h1 className='text-3xl font-black'>{props.article.long_title}</h1>
+            <div className='container p-4 mx-auto'>
+                <h1 className='text-3xl font-black mb-8 text-gray-600'>{props.article.long_title}</h1>
                 {
                     props?.article?.feature_image?.url ?
-                    <div className='relative aspect-video w-full'>
+                    <div className='relative aspect-video w-full overflow-hidden rounded-lg mb-8'>
                         <Image src={props.article.feature_image.url} alt={props.article.long_title} fill className='object-cover' />
                     </div> :
-                    <iframe src={`https://www.youtube.com/embed/${extractVideoId(String(props.article.yt_url))}`} className='aspect-video w-full' frameBorder="0" allowFullScreen />
+                    <iframe src={`https://www.youtube.com/embed/${extractVideoId(String(props.article.yt_url))}`} className='aspect-video w-full rounded-lg mb-8' frameBorder="0" allowFullScreen />
                 }
+                <div className='grid grid-cols-12'>
+                    <RichText className="lg:col-span-8 col-span-12">
+                        {props.article?.content?.replace(
+                            /&nbsp;|&zwnj;|&raquo;|&laquo;|&gt;/g,
+                            " "
+                            )}
+                    </RichText>
+                    <div className='lg:col-span-4 col-span-12'>
+                        <AdCard className='' />
+                    </div>
+                </div>
             </div>
         </Fragment>
     )

@@ -4,10 +4,55 @@
 
 *::selection {
     @apply bg-primary text-white;
+    word-spacing: .3rem;
 }
 
 @layer components {
     .carousel::-webkit-scrollbar {
         height: 0;
+    }
+    .rich-text {
+        @apply text-gray-600 leading-[195%] text-lg lg:mb-44 mb-16 w-full;
+    }
+    .rich-text > * {
+        @apply mb-5 text-gray-600 leading-[195%] text-lg break-words max-w-[calc(100vw-40px)];
+    }
+    .rich-text h1 {
+        @apply text-3xl font-bold leading-relaxed
+    }
+    .rich-text h2 {
+        @apply text-2xl font-bold leading-relaxed
+    }
+    .rich-text h3 {
+        @apply text-xl font-bold leading-relaxed
+    }
+    .rich-text a {
+        @apply mb-5 text-primary leading-[195%] text-lg;
+    }
+    .rich-text img {
+        @apply w-full mb-0 rounded-lg;
+    }
+    .rich-text .portrait_banner {
+        @apply w-full lg:max-w-xs mb-5 lg:mr-3 lg:float-left;
+    }
+    .rich-text > img:not(.portrait_banner)+p {
+        @apply mb-5 text-black leading-[195%] text-base;
+    }
+    .rich-text ul {
+        @apply list-disc list-inside mb-5;
+    }
+    .rich-text blockquote:not(.twitter-tweet) {
+        @apply text-primary flex mb-8 relative text-2xl font-bold
+        before:content-['"'] before:text-white before:bg-primary before:flex before:items-center before:justify-center before:w-12 before:h-12 before:min-w-[3rem] before:min-h-[3rem] before:ml-5 before:rounded-full before:mb-[-3px]
+        after:content-[''] after:border-b after:border-primary after:block after:w-[calc(100%-2.7rem)] after:absolute after:bottom-[-15px] after:left-0
+    }
+    .rich-text ol {
+        @apply list-decimal list-inside mb-5;
+    }
+    .rich-text iframe {
+        @apply mb-5;
+    }
+    .twitter-tweet * {
+        word-wrap: break-word !important;
     }
 }

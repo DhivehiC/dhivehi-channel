@@ -9,7 +9,7 @@ const FeatureBlock:FC<FeatureBlockProps> = (props) => {
         <Fragment>
             {
                 props?.posts[0] && 
-                <Link href={props?.posts[0]?.url} className='min-h-[90vh] w-full bg-accent relative group overflow-hidden block'>
+                <Link href={props?.posts[0]?.url} className='min-h-[90vh] w-full bg-accent relative group overflow-hidden block -mt-[100px]'>
                     <Image src={props?.posts[0]?.feature_image} alt={props?.posts[0]?.title} fill className='object-cover absolute group-hover:scale-105 transition-all' />
                     <span className='w-full h-full bg-gradient-to-b from-black to-[#00000075] absolute opacity-90 top-0 left-0' />
                     <div className='absolute inset-0 flex items-end'>
