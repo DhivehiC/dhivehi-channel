@@ -62,10 +62,7 @@ const Header:FC<Props> = (props) => {
                     'col-span-3 flex items-center justify-end gap-4 opacity-100 lg:opacity-100 transition-all',
                     searchBar && 'opacity-0'
                 ])}>
-                    <Button onClick={()=>setSearchBar((s)=>!s)}  className={twMerge([
-                        'p-0 bg-transparent lg:hidden',
-                        isScrolledToTop && 'text-dark-accent'
-                    ])}>
+                    <Button onClick={()=>setSearchBar((s)=>!s)}  className={'p-0 bg-transparent lg:hidden'}>
                         <HiMagnifyingGlassCircle className='text-5xl' />
                     </Button>
                     <Button className='flex items-center gap-4 relative'>
