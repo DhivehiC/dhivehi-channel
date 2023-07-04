@@ -20,7 +20,7 @@ const index:NextPage<Props> = (props) => {
             <div className='container px-4 mx-auto'>
                 <h1 className='text-3xl font-black'>{props.article.long_title}</h1>
                 {
-                    props.article.feature_image.url ?
+                    props?.article?.feature_image?.url ?
                     <div className='relative aspect-video w-full'>
                         <Image src={props.article.feature_image.url} alt={props.article.long_title} fill className='object-cover' />
                     </div> :
