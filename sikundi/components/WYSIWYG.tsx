@@ -144,7 +144,7 @@ const WYSIWYG = forwardRef((props:Props, ref) => {
 
                         fetch(`https://publish.twitter.com/oembed?url=${e.clipboardData.getData('text')}`, {
                             method: "GET",
-                            mode: "no-cors"
+                            mode: "cors"
                         }).then(async (resp)=>{
                             const url = await resp.json()
                             document.execCommand('insertHTML', false, url.html)
