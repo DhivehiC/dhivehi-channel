@@ -29,8 +29,8 @@ const index:NextPage<Props> = (props) => {
                     </div> :
                     <iframe src={`https://www.youtube.com/embed/${extractVideoId(String(props.article.yt_url))}`} className='aspect-video w-full rounded-lg mb-8' frameBorder="0" allowFullScreen />
                 }
-                <div className='grid grid-cols-12'>
-                    <RichText className="lg:col-span-8 col-span-12">
+                <div className='grid grid-cols-12 mb-8'>
+                    <RichText className="lg:col-span-8 col-span-12 mb-4">
                         {props.article?.content?.replace(
                             /&nbsp;|&zwnj;|&raquo;|&laquo;|&gt;/g,
                             " "
