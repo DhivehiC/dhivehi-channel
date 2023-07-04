@@ -21,7 +21,7 @@ const index:NextPage<Props> = (props) => {
                 ]
             }} twitter={{ cardType: "summary_large_image" }} />
             <div className='container p-4 mx-auto'>
-                <h1 className='text-3xl font-black mb-8 text-gray-600'>{props.article.long_title}</h1>
+                <h1 className='text-3xl font-black mb-8 text-gray-600 leading-normal'>{props.article.long_title}</h1>
                 {
                     props?.article?.feature_image?.url ?
                     <div className='relative aspect-video w-full overflow-hidden rounded-lg mb-8'>
