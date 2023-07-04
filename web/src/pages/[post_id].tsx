@@ -3,20 +3,30 @@ import { NextSeo } from 'next-seo'
 import React, { Fragment } from 'react'
 import Hashids from 'hashids'
 import axios from 'axios'
+import Image from 'next/image'
 
 const index:NextPage<Props> = (props) => {
     return (
         <Fragment>
-            <NextSeo title={"Dhivehi Channel"} description={"This is the streaming platform for dhivehi channel"} openGraph={{
-                url: "",
-                title: "",
-                description: "",
-                siteName: "",
+            <NextSeo title={`${props.article.latin_title} | Dhivehi Channel`} description={props.article.description} openGraph={{
+                url: `/${props.article.id}`,
+                title: `${props.article.title} | Dhivehi Channel`,
+                description: props.article.description,
+                siteName: "Dhivehi Channel",
                 images: [
-                    { url: "" }
+                    { url: props.article.feature_image.url }
                 ]
             }} twitter={{ cardType: "summary_large_image" }} />
-            
+            <div className='container px-4 mx-auto'>
+                <h1 className='text-3xl font-black'>{props.article.long_title}</h1>
+                {
+                    props.article.feature_image.url ?
+                    <div className='relative aspect-video w-full'>
+                        <Image src={props.article.feature_image.url} alt={props.article.long_title} fill className='object-cover' />
+                    </div> :
+                    <iframe src={props.article.yt_url} className='aspect-video w-full' />
+                }
+            </div>
         </Fragment>
     )
 }
@@ -34,14 +44,14 @@ export const getServerSideProps:GetServerSideProps<Props> = async (ctx) => {
     
 
     return { 
-        props: post
+        props: { ...post, article: {...post.article, id: hashids.encode(post.article.id)} }
     }
 }
 
 
 interface Props {
     article: {
-        id: number
+        id: string
         title: string
         latin_title: string
         long_title: string
