@@ -95,7 +95,7 @@ export const getServerSideProps:GetServerSideProps<Props> = async (ctx) => {
             },
             posts: posts?.smallPost?.map((post:any)=>({
                 title: post?.title,
-                category: post?.category,
+                category: post?.category?.title,
                 comments: post?._count?.comments,
                 feature_image: post?.feature_image?.url || `https://img.youtube.com/vi/${extractVideoId(String(post?.yt_url))}/maxresdefault.jpg`,
                 feature_image_alt: `https://img.youtube.com/vi/${extractVideoId(String(post?.yt_url))}/default.jpg`,
@@ -110,7 +110,7 @@ export const getServerSideProps:GetServerSideProps<Props> = async (ctx) => {
             sub_title: "އެންމެ ފަހު 30 ދުވަސް",
             posts: posts?.topPost?.map((post:any)=>({
                 title: post?.title,
-                category: post?.category,
+                category: post?.category?.title,
                 comments: post?._count?.comments,
                 feature_image: post?.feature_image?.url || `https://img.youtube.com/vi/${extractVideoId(String(post?.yt_url))}/maxresdefault.jpg`,
                 feature_image_alt: `https://img.youtube.com/vi/${extractVideoId(String(post?.yt_url))}/default.jpg`,
@@ -125,7 +125,7 @@ export const getServerSideProps:GetServerSideProps<Props> = async (ctx) => {
             sub_title: "އެންމެ ފަހު 30 ދުވަސް",
             post: (posts?.mediumPost?.map((post:any)=>({
                 title: post?.title,
-                category: post?.category,
+                category: post?.category?.title,
                 comments: post?._count?.comments,
                 feature_image: post?.feature_image?.url || `https://img.youtube.com/vi/${extractVideoId(String(post?.yt_url))}/maxresdefault.jpg`,
                 feature_image_alt: `https://img.youtube.com/vi/${extractVideoId(String(post?.yt_url))}/default.jpg`,
@@ -151,7 +151,7 @@ export const getServerSideProps:GetServerSideProps<Props> = async (ctx) => {
                     },
                     posts: (category?.posts?.map((post:any)=>({
                         title: post?.title,
-                        category: post?.category,
+                        category: post?.category?.title,
                         comments: post?._count?.comments,
                         feature_image: post?.feature_image?.url || `https://img.youtube.com/vi/${extractVideoId(String(post?.yt_url))}/maxresdefault.jpg`,
                         feature_image_alt: `https://img.youtube.com/vi/${extractVideoId(String(post?.yt_url))}/default.jpg`,
@@ -176,7 +176,7 @@ export const getServerSideProps:GetServerSideProps<Props> = async (ctx) => {
                 },
                 posts: (category?.posts?.map((post:any)=>({
                     title: post?.title,
-                    category: post?.category,
+                    category: post?.category?.title,
                     comments: post?._count?.comments,
                     feature_image: post?.feature_image?.url || `https://img.youtube.com/vi/${extractVideoId(String(post?.yt_url))}/maxresdefault.jpg`,
                     feature_image_alt: `https://img.youtube.com/vi/${extractVideoId(String(post?.yt_url))}/default.jpg`,

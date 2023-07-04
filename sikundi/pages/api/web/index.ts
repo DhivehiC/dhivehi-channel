@@ -52,7 +52,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 select: {
                     id: true,
                     title: true,
-                    category: true,
+                    category: {
+                        select: {
+                            title: true,
+                            latin_title: true
+                        }
+                    },
                     yt_url: true,
                     published_at: true,
                     feature_image: {
@@ -82,7 +87,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 select: {
                     id: true,
                     title: true,
-                    category: true,
+                    category: {
+                        select: {
+                            title: true,
+                            latin_title: true
+                        }
+                    },
                     yt_url: true,
                     feature_image: {
                         select: {
@@ -111,7 +121,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 select: {
                     id: true,
                     title: true,
-                    category: true,
+                    category: {
+                        select: {
+                            title: true,
+                            latin_title: true
+                        }
+                    },
                     yt_url: true,
                     feature_image: {
                         select: {
@@ -138,6 +153,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                             id: true,
                             title: true,
                             yt_url: true,
+                            category: {
+                                select: {
+                                    title: true,
+                                    latin_title: true
+                                }
+                            },
                             feature_image: {
                                 select: {
                                     url: true
