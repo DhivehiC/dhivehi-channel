@@ -4,6 +4,7 @@ import React, { Fragment } from 'react'
 import Hashids from 'hashids'
 import axios from 'axios'
 import Image from 'next/image'
+import { extractVideoId } from '@DhivehiChannel/libs/youtube'
 
 const index:NextPage<Props> = (props) => {
     return (
@@ -14,7 +15,7 @@ const index:NextPage<Props> = (props) => {
                 description: props.article.description,
                 siteName: "Dhivehi Channel",
                 images: [
-                    { url: props.article.feature_image.url }
+                    { url: props?.article?.feature_image?.url }
                 ]
             }} twitter={{ cardType: "summary_large_image" }} />
             <div className='container px-4 mx-auto'>
@@ -24,7 +25,7 @@ const index:NextPage<Props> = (props) => {
                     <div className='relative aspect-video w-full'>
                         <Image src={props.article.feature_image.url} alt={props.article.long_title} fill className='object-cover' />
                     </div> :
-                    <iframe src={props.article.yt_url} className='aspect-video w-full' />
+                    <iframe src={`https://www.youtube.com/embed/${extractVideoId(String(props.article.yt_url))}`} className='aspect-video w-full' frameBorder="0" allowFullScreen />
                 }
             </div>
         </Fragment>
