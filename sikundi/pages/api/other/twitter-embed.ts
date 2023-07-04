@@ -7,8 +7,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         method: "GET",
         mode: "cors"
     }).then(async (resp)=>{
-        const url = await resp.json()
-        res.status(200).json(url)
+        if (resp.status === 200) {
+            const url = await resp.json()
+            res.status(200).json(url)
+        } else {
+            res.status(resp.status).json({})
+        }
     }).catch((e)=>{
         console.log(e)
         res.status(500).json({e})
