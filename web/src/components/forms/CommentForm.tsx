@@ -26,25 +26,27 @@ const CommentForm:FC<Props> = (props) => {
 
     function submit() {
         return new Promise(async (resolve, reject)=>{
-            try {
-                const { data, status } = await axios.post(props.apiUrl, {
-                    name,
-                    content
-                },
-                {
-                    headers: {
-                        authorization: `Bearer ${props.apiKey}`
+            if (name.length > 0 && content.length > 0) {
+                try {
+                    const { data, status } = await axios.post(props.apiUrl, {
+                        name,
+                        content
+                    },
+                    {
+                        headers: {
+                            authorization: `Bearer ${props.apiKey}`
+                        }
+                    })
+                    if (status === 200) {
+                        props.OnSucess(data)
+                        setName("")
+                        setContent("")
+                        return resolve(data)
                     }
-                })
-                if (status === 200) {
-                    props.OnSucess(data)
-                    setName("")
-                    setContent("")
-                    return resolve(data)
+                    return reject("")
+                } catch (error) {
+                    return reject("")
                 }
-                return reject("")
-            } catch (error) {
-                return reject("")
             }
         })
     }    
