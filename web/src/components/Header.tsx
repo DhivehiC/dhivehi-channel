@@ -1,15 +1,43 @@
 import Image from 'next/image'
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect, useRef, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { HiMagnifyingGlass, HiOutlineTv, HiMagnifyingGlassCircle, HiXMark } from 'react-icons/hi2'
 import Button from './Button'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useDebounce, useOnClickOutside } from 'usehooks-ts'
+import transliterate from '@DhivehiChannel/libs/transliterate'
+import axios from 'axios'
 
 const Header:FC<Props> = (props) => {
     const [searchBar, setSearchBar] = useState(false)
     const [isScrolledToTop, setIsScrolledToTop] = useState(true)
+    const [searchBarActive, setSearchBarActive] = useState(false)
+    const [results, setResults] = useState<any[]>([])
     const router = useRouter()
+    const ref = useRef<any>(null)
+    const [search, setSearch] = useState<string>("")
+    const debouncedValue = useDebounce<string>(search, 500)
+    const handleClickOutside = () => setSearchBarActive(false)
+    useOnClickOutside(ref, handleClickOutside)
+  
+    useEffect(() => {
+        (async ()=>{
+            try {
+                const { data, status } = await axios.get(`/api/search?query=${search}`, {
+                    method: "get",
+                    headers: {
+                        authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`
+                    }
+                })
+                if (data?.articles && status === 200) {
+                    setResults(data?.articles)
+                }
+            } catch (error) {
+                console.error(error)
+            }
+        })()
+    }, [debouncedValue])
 
     useEffect(()=>{
         if (router.pathname === "/") {
@@ -32,6 +60,9 @@ const Header:FC<Props> = (props) => {
         } else {
             setIsScrolledToTop(false)
         }
+        setSearch("")
+        setResults([])
+        setSearchBar(false)
     }, [router.pathname, router.query])
 
     return (
@@ -47,15 +78,34 @@ const Header:FC<Props> = (props) => {
                     </Link>
                 </div>
                 <div className='col-span-6 flex justify-center'>
-                    <div className={twMerge([
+                    <div ref={ref} className={twMerge([
                         'lg:w-full w-[calc(100%-2rem)] transition-all lg:max-w-2xl lg:relative lg:top-[unset] lg:translate-y-[unset] absolute top-1/2 -translate-y-1/2 left-4 z-50',
                         !searchBar && '-top-full'
                     ])}>
                         <button  onClick={()=>setSearchBar((s)=>!s)}>
                             <HiXMark className='absolute left-6 top-1/2 -translate-y-1/2 text-xl text-dark-accent rotate-[360deg] lg:hidden' />
                         </button>
-                        <input type='search' className='border border-accent w-full bg-white py-3 pl-6 pr-14 rounded-full text-base focus-within:outline-none' placeholder='ހޯދާ' />
+                        <input type='search' value={search} placeholder='ހޯދާ' onFocus={()=>{setSearchBarActive(true); setSearchBar(true)}} className={twMerge([
+                            'border border-accent w-full py-2 pl-6 pr-14 rounded-3xl text-base leading-loose focus-within:outline-none',
+                            (searchBar && searchBarActive && results?.length > 0) && 'rounded-b-none border-0'
+                        ])} onChange={(e)=>{
+                            const value = transliterate(e.currentTarget.value)
+                            setSearch(value)
+                            if (value.length === 0) {
+                                setResults([])
+                            }
+                        }} />
                         <HiMagnifyingGlass className='absolute right-6 top-1/2 -translate-y-1/2 text-xl text-dark-accent rotate-[360deg]' />
+                        <div className={twMerge([
+                            'w-full h-0 bg-white absolute top-full rounded-2xl rounded-t-none overflow-auto',
+                            (searchBar && searchBarActive) && 'max-h-[50vh] h-auto'
+                        ])}>
+                            {results?.map((result)=>(
+                                <Link href={`/${result?.id}`} className='px-6 py-4 block text-gray-700 hover:opacity-75 active:opacity-50'>
+                                    {result?.title}
+                                </Link>
+                            ))}
+                        </div>
                     </div>
                 </div>
                 <div className={twMerge([
