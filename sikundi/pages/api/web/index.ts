@@ -29,7 +29,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                         select: {
                             comments: true
                         }
-                    }
+                    },
+                    published_at: true
                 },
                 orderBy: {
                     published_at: "desc"
@@ -87,6 +88,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 select: {
                     id: true,
                     title: true,
+                    published_at: true,
                     category: {
                         select: {
                             title: true,
@@ -133,6 +135,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                         }
                     },
                     yt_url: true,
+                    published_at: true,
                     feature_image: {
                         select: {
                             url: true
