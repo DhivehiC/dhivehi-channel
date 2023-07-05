@@ -100,8 +100,8 @@ const Header:FC<Props> = (props) => {
                             'w-full h-0 bg-white absolute top-full rounded-2xl rounded-t-none overflow-auto',
                             (searchBar && searchBarActive) && 'max-h-[50vh] h-auto'
                         ])}>
-                            {results?.map((result)=>(
-                                <Link href={`/${result?.id}`} className='px-6 py-4 block text-gray-700 hover:opacity-75 active:opacity-50'>
+                            {results?.map((result, index)=>(
+                                <Link key={index} href={`/${result?.id}`} className='px-6 py-4 block text-gray-700 hover:opacity-75 active:opacity-50'>
                                     {result?.title}
                                 </Link>
                             ))}
