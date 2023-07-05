@@ -11,6 +11,7 @@ import axios from 'axios'
 
 const Header:FC<Props> = (props) => {
     const [searchBar, setSearchBar] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [isScrolledToTop, setIsScrolledToTop] = useState(true)
     const [searchBarActive, setSearchBarActive] = useState(false)
     const [results, setResults] = useState<any[]>([])
@@ -35,6 +36,8 @@ const Header:FC<Props> = (props) => {
                 }
             } catch (error) {
                 console.error(error)
+            } finally {
+                setLoading(false)
             }
         })()
     }, [debouncedValue])
@@ -87,24 +90,34 @@ const Header:FC<Props> = (props) => {
                         </button>
                         <input type='search' value={search} placeholder='ހޯދާ' onFocus={()=>{setSearchBarActive(true); setSearchBar(true)}} className={twMerge([
                             'border border-accent w-full py-2 pl-6 pr-14 rounded-3xl text-base leading-loose focus-within:outline-none',
-                            (searchBar && searchBarActive && results?.length > 0) && 'rounded-b-none border-0'
+                            (searchBar && searchBarActive && search?.length > 0) && 'rounded-b-none border-0 border-t border-x'
                         ])} onChange={(e)=>{
                             const value = transliterate(e.currentTarget.value)
                             setSearch(value)
                             if (value.length === 0) {
                                 setResults([])
+                            } else {
+                                setLoading(true)
                             }
                         }} />
                         <HiMagnifyingGlass className='absolute right-6 top-1/2 -translate-y-1/2 text-xl text-dark-accent rotate-[360deg]' />
                         <div className={twMerge([
                             'w-full h-0 bg-white absolute top-full rounded-2xl rounded-t-none overflow-auto',
-                            (searchBar && searchBarActive) && 'max-h-[50vh] h-auto'
+                            (searchBar && searchBarActive) && 'max-h-[50vh] h-auto',
+                            (searchBar && searchBarActive && search) && 'border-accent border border-t-0'
                         ])}>
                             {results?.map((result, index)=>(
                                 <Link key={index} href={`/${result?.id}`} className='px-6 py-4 block text-gray-700 hover:opacity-75 active:opacity-50'>
                                     {result?.title}
                                 </Link>
                             ))}
+                            {
+                                (search && results?.length === 0) && (
+                                    loading ?
+                                    <p className='p-4 text-center'>{`ލޯޑިން`} {"..."}</p> :
+                                    <p className='p-4 text-center'>{`"${search}" އާއި ގުޅުންހުރި ލިޔުމެއް ނެތެވެ.`}</p>
+                                )
+                            }
                         </div>
                     </div>
                 </div>
