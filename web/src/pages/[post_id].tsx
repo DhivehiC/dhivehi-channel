@@ -10,7 +10,7 @@ import AdCard from '@DhivehiChannel/components/cards/AdCard'
 import CommentForm from '@DhivehiChannel/components/forms/CommentForm'
 import CommentGroup from '@DhivehiChannel/components/blocks/CommentGroup'
 
-const index:NextPage<Props> = (props) => {
+const Index:NextPage<Props> = (props) => {
     const [sentComments, setSentComments] = useState<
         {
             id: Number
@@ -76,7 +76,7 @@ const index:NextPage<Props> = (props) => {
     )
 }
 
-export default index
+export default Index
 
 export const getServerSideProps:GetServerSideProps<Props> = async (ctx) => {
     const hashids = new Hashids()
