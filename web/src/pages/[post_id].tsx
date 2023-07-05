@@ -1,14 +1,25 @@
 import { GetServerSideProps, NextPage } from 'next'
 import { NextSeo } from 'next-seo'
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import Hashids from 'hashids'
 import axios from 'axios'
 import Image from 'next/image'
 import { extractVideoId } from '@DhivehiChannel/libs/youtube'
 import RichText from '@DhivehiChannel/components/blocks/RichText'
 import AdCard from '@DhivehiChannel/components/cards/AdCard'
+import CommentForm from '@DhivehiChannel/components/forms/CommentForm'
+import CommentGroup from '@DhivehiChannel/components/blocks/CommentGroup'
 
 const index:NextPage<Props> = (props) => {
+    const [sentComments, setSentComments] = useState<
+        {
+            id: Number
+            created_by: String
+            content: String
+            notApproved: Boolean
+        }[]
+    >([])
+
     return (
         <Fragment>
             <NextSeo title={`${props.article.latin_title} | Dhivehi Channel`} description={props.article.description} openGraph={{
@@ -29,7 +40,7 @@ const index:NextPage<Props> = (props) => {
                     </div> :
                     <iframe src={`https://www.youtube.com/embed/${extractVideoId(String(props.article.yt_url))}`} className='aspect-video w-full rounded-lg mb-8 bg-gray-400' frameBorder="0" allowFullScreen />
                 }
-                <div className='grid grid-cols-12 mb-8'>
+                <div className='grid grid-cols-12 mb-6'>
                     <RichText className="lg:col-span-8 col-span-12 mb-4">
                         {props.article?.content?.replace(
                             /&nbsp;|&zwnj;|&raquo;|&laquo;|&gt;/g,
@@ -40,6 +51,26 @@ const index:NextPage<Props> = (props) => {
                         <AdCard className='' />
                     </div>
                 </div>
+                <CommentForm
+                    className='mb-8 max-w-xl'
+                    apiKey={String(process.env.NEXT_PUBLIC_TOKEN)}
+                    apiUrl={`/api/comment/${props.article.id}`}
+                    OnSucess={(res:any)=>{
+                        setSentComments((data) => [
+                            ...data,
+                            {
+                                id: 0,
+                                created_by: `${res?.created_by}`,
+                                content: `${res?.content}`,
+                                notApproved: true,
+                            },
+                        ])
+                    }}
+                />
+                <CommentGroup
+                    className="max-w-xl"
+                    comments={[...props.article.comments, ...sentComments]}
+                />
             </div>
         </Fragment>
     )
@@ -89,7 +120,7 @@ interface Props {
             latin_title: string
         }
         comments: {
-            id: string
+            id: number
             created_by: string
             content: string
         }[]
