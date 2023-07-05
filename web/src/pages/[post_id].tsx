@@ -27,7 +27,7 @@ const index:NextPage<Props> = (props) => {
                     <div className='relative aspect-video w-full overflow-hidden rounded-lg mb-8'>
                         <Image src={props.article.feature_image.url} alt={props.article.long_title} fill className='object-cover' />
                     </div> :
-                    <iframe src={`https://www.youtube.com/embed/${extractVideoId(String(props.article.yt_url))}`} className='aspect-video w-full rounded-lg mb-8' frameBorder="0" allowFullScreen />
+                    <iframe src={`https://www.youtube.com/embed/${extractVideoId(String(props.article.yt_url))}`} className='aspect-video w-full rounded-lg mb-8 bg-gray-400' frameBorder="0" allowFullScreen />
                 }
                 <div className='grid grid-cols-12 mb-8'>
                     <RichText className="lg:col-span-8 col-span-12 mb-4">
