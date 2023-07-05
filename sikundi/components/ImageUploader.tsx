@@ -95,7 +95,7 @@ const ImageUploader:FC<Props> = (props) => {
                 }
             }))
         } catch (error) {
-            console.log(error)
+            setNotification({ title: "error", content: `an unknown error occured`, type: "failed" })
         } finally {
             setFiles(null)
             setActive(false)
