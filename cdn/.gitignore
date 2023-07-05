@@ -38,3 +38,4 @@ next-env.d.ts
 #temp
 /temp/*
 /public/audio/*
+/media/*
