@@ -71,7 +71,7 @@ export const getServerSideProps:GetServerSideProps<Props> = async (ctx) => {
             ...category,
             articles: category?.articles?.map((post:any)=>({
                 title: post?.title,
-                category: "",
+                category: category?.title,
                 comments: "",
                 feature_image: post?.feature_image?.url || `https://img.youtube.com/vi/${extractVideoId(String(post?.yt_url))}/maxresdefault.jpg`,
                 feature_image_alt: `https://img.youtube.com/vi/${extractVideoId(String(post?.yt_url))}/default.jpg`,

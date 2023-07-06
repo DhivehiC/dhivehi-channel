@@ -49,7 +49,7 @@ const Index:NextPage<Props> = (props) => {
                     <div className='relative aspect-video w-full overflow-hidden rounded-lg mb-1'>
                         <Image src={props.article.feature_image.url} alt={props.article.long_title} fill className='object-cover' />
                     </div> :
-                    <iframe src={`https://www.youtube.com/embed/${extractVideoId(String(props.article.yt_url))}`} className='aspect-video mb-1 w-full rounded-lg bg-gray-400' frameBorder="0" allowFullScreen />
+                    <iframe src={`https://www.youtube.com/embed/${extractVideoId(String(props.article.yt_url))}?modestbranding=1`} className='aspect-video mb-1 w-full rounded-lg bg-gray-400' frameBorder="0" allowFullScreen />
                 }
                 <p className='mb-8 text-gray-400 text-base'>{props?.article?.feature_image_caption}</p>
                 <div className='grid grid-cols-12 mb-6'>
