@@ -97,16 +97,6 @@ export const getServerSideProps:GetServerSideProps<Props> = async (ctx) => {
         {
             block_name: "feature_category_block",
             title: "އެޑިޓާރސް ޕިކްސް",
-            load_more_url: {
-                method: "get",
-                url: "/",
-                headers: {
-
-                },
-                body: {
-
-                }
-            },
             posts: posts?.smallPost?.map((post:any)=>({
                 title: post?.title,
                 category: post?.category?.title,
@@ -138,16 +128,7 @@ export const getServerSideProps:GetServerSideProps<Props> = async (ctx) => {
                 return ({
                     block_name: "category_block",
                     title: category?.title,
-                    load_more_url: {
-                        method: "get",
-                        url: "/",
-                        headers: {
-        
-                        },
-                        body: {
-                            
-                        }
-                    },
+                    load_more_url: `/category/${category?.latin_title}`,
                     posts: (category?.posts?.map((post:any)=>({
                         title: post?.title,
                         category: post?.category?.title,
@@ -163,16 +144,7 @@ export const getServerSideProps:GetServerSideProps<Props> = async (ctx) => {
             return ({
                 block_name: "ad_category_block",
                 title: category?.title,
-                load_more_url: {
-                    method: "get",
-                    url: "/",
-                    headers: {
-    
-                    },
-                    body: {
-                        
-                    }
-                },
+                load_more_url: `/category/${category?.latin_title}`,
                 posts: (category?.posts?.map((post:any)=>({
                     title: post?.title,
                     category: post?.category?.title,

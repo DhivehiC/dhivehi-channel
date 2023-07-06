@@ -1,19 +1,19 @@
 import React, { FC, Fragment } from 'react'
 import PostCardBig, { PostCardBigProps } from '@DhivehiChannel/components/cards/PostCardBig'
 import { twMerge } from 'tailwind-merge'
-import Button from '@DhivehiChannel/components/Button'
+import Link from 'next/link'
 
 const CategoryBlock:FC<CategoryBlockProps> = (props) => {
     return (
         <Fragment>
-            <div className='container mx-auto px-4 mb-12 lg:mb-24'>
-                <div className='flex items-center gap-x-6 mb-6 lg:mb-8'>
+            <div className='container mx-auto px-4 mb-12 lg:mb-24 flex flex-col items-center'>
+                <div className='flex items-center gap-x-6 mb-6 lg:mb-8 w-full'>
                     <h6 className='text-secondary font-black text-2xl'>
                         {props.title}
                     </h6>
                     <hr className='flex-1 border-secondary' />
                 </div>
-                <div className='grid grid-cols-4 gap-4 mb-8'>
+                <div className='grid grid-cols-4 gap-4 mb-8 w-full'>
                     {props?.posts?.map((post, index)=>(
                         <PostCardBig key={index} {...post} 
                             className={twMerge([
@@ -30,9 +30,9 @@ const CategoryBlock:FC<CategoryBlockProps> = (props) => {
                         />
                     ))}
                 </div>
-                <Button className='text-center min-w-[200px] mx-auto block'>
+                <Link href={props.load_more_url} className='text-center min-w-[200px] bg-primary text-white py-3 px-6 rounded-lg hover:opacity-75 active:opacity-50'>
                     {"އިތުރަށް ލޯރޑް ކުރައްވާ"}
-                </Button>
+                </Link>
             </div>
         </Fragment>
     )
@@ -43,15 +43,6 @@ export default CategoryBlock
 export interface CategoryBlockProps {
     block_name: "category_block",
     title: string,
-    load_more_url: {
-        method: "get" | "post",
-        url: string,
-        headers: {
-            [name:string]: string | number
-        },
-        body: {
-            [name:string]: string | number
-        }
-    },
+    load_more_url: string,
     posts: PostCardBigProps[]
 }

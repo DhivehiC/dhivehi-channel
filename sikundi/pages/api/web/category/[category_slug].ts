@@ -19,6 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     select: {
                         id: true,
                         title: true,
+                        yt_url: true,
                         feature_image: {
                             select: {
                                 url: true

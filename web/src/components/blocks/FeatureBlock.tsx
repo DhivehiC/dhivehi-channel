@@ -14,8 +14,9 @@ const FeatureBlock:FC<FeatureBlockProps> = (props) => {
                     <span className='w-full h-full bg-gradient-to-b from-black to-[#00000075] absolute opacity-90 top-0 left-0' />
                     <div className='absolute inset-0 flex items-end'>
                         <div className='container w-full mx-auto p-4 mb-10'>
-                            <h6 className='text-white mb-5'>{`${props?.posts[0]?.category} - ${props?.posts[0]?.comments} ކޮމެންޓް`}</h6>
-                            <h1 className='text-white text-5xl font-black mb-10 lg:max-w-[50%] md:max-w-[75%] leading-snug'>{props?.posts[0]?.title}</h1>
+                            <h6 className='text-white mb-5'>{`${props?.posts[0]?.category}`}</h6>
+                            <h1 className='text-white text-5xl mb-2 font-black lg:max-w-[50%] md:max-w-[75%] leading-snug'>{props?.posts[0]?.title}</h1>
+                            <h6 className='text-white mb-10'>{`${props?.posts[0]?.comments} ކޮމެންޓް`}</h6>
                             {props?.posts?.[0]?.yt_url && <p className='text-white inline-flex items-center gap-2 hover:opacity-50 active:opacity-25 font-bold text-lg'>
                                 <HiPlayCircle className='text-3xl' />
                                 {"ވީޑިއޯ ފައްޓާ"}
