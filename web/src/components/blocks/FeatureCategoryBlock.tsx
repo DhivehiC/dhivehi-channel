@@ -18,11 +18,11 @@ const FeatureCategoryBlock:FC<FeatureCategoryBlockProps> = (props) => {
                     {props?.posts?.map((post, index)=>(
                         <PostCardBig key={index} {...post} 
                             className={twMerge([
-                                index === 1 ? 'lg:col-span-2 lg:row-span-2' : 'lg:col-span-1',
+                                index === 1 ? 'lg:col-span-2 lg:row-span-2 lg:flex lg:flex-col' : 'lg:col-span-1',
                                 index === 0 ? 'col-span-4' : 'col-span-2'
                             ])}
                             featureImageClassName={twMerge([
-                                index === 1 && 'lg:h-[calc(100%-100px)]'
+                                index === 1 && 'lg:flex-1'
                             ])} 
                             titleClassName={twMerge([
                                 index === 1 && 'lg:text-4xl lg:mb-2'
