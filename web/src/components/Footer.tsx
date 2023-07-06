@@ -30,10 +30,13 @@ const Footer:FC<Props> = (props) => {
                         ))}
                     </div>
                 </div>
-                <div className='lg:col-span-4 col-span-12'>
-                    <div className='w-20 h-20 relative rounded-full border border-accent lg:mr-auto lg:ml-[unset] mx-auto'>
+                <div className='lg:col-span-4 col-span-12 flex items-center' dir='ltr'>
+                    {/* <div className='w-20 h-20 relative rounded-full border border-accent lg:mr-auto lg:ml-[unset] mx-auto'>
                         <Image src={'/logo.png'} alt='logo' fill priority />
-                    </div>
+                    </div> */}
+                    <p className='text-accent text-center lg:text-start'>
+                        {"a Product of Maldives Media Investment Pvt Ltd, Tel: 3005055, Email: info@dhivehichannel.mv"}
+                    </p>
                 </div>
             </div>
         </footer>

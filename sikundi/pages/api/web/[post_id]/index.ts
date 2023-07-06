@@ -28,7 +28,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                         },
                         feature_image: {
                             select: {
-                                url: true
+                                url: true,
                             }
                         },
                         feature_image_caption: true,

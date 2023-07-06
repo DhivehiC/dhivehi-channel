@@ -4,6 +4,8 @@
 
 *::selection {
     @apply bg-primary text-white;
+}
+* {
     word-spacing: .3rem;
 }
 

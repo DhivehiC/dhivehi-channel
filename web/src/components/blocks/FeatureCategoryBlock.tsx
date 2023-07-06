@@ -14,7 +14,7 @@ const FeatureCategoryBlock:FC<FeatureCategoryBlockProps> = (props) => {
                     </h6>
                     <hr className='flex-1 border-secondary' />
                 </div>
-                <div className='grid grid-cols-4 gap-4 mb-8'>
+                <div className='grid grid-cols-4 gap-4 mb-8 lg:mb-14'>
                     {props?.posts?.map((post, index)=>(
                         <PostCardBig key={index} {...post} 
                             className={twMerge([
@@ -22,17 +22,17 @@ const FeatureCategoryBlock:FC<FeatureCategoryBlockProps> = (props) => {
                                 index === 0 ? 'col-span-4' : 'col-span-2'
                             ])}
                             featureImageClassName={twMerge([
-                                index === 1 && 'lg:h-[calc(83%)]'
+                                index === 1 && 'lg:h-[calc(100%-100px)]'
                             ])} 
                             titleClassName={twMerge([
-                                index === 1 && 'lg:text-4xl lg:mb-5'
+                                index === 1 && 'lg:text-4xl lg:mb-2'
                             ])} 
                         />
                     ))}
                 </div>
-                <Button className='text-center min-w-[200px] mx-auto block'>
+                {/* <Button className='text-center min-w-[200px] mx-auto block'>
                     {"އިތުރަށް ލޯރޑް ކުރައްވާ"}
-                </Button>
+                </Button> */}
             </div>
         </Fragment>
     )

@@ -69,16 +69,30 @@ export const getServerSideProps:GetServerSideProps<Props> = async (ctx) => {
     const blocks:block[] = switchLastWithSecondLast([
         {
             block_name: "feature_block",
-            posts: posts?.bigPost?.map((post:any)=>({
-                title: post?.title,
-                category: post?.category?.title,
-                comments: post?._count?.comments,
-                feature_image: post?.feature_image?.url || `https://img.youtube.com/vi/${extractVideoId(String(post?.yt_url))}/maxresdefault.jpg`,
-                feature_image_alt: `https://img.youtube.com/vi/${extractVideoId(String(post?.yt_url))}/default.jpg`,
-                description: post?.description,
-                published_at: post?.published_at,
-                url: `/${hashids.encode(post?.id)}`
-            })) || [],
+            posts: [
+                ...posts?.mainPost?.map((post:any)=>({
+                    title: post?.title,
+                    category: post?.category?.title,
+                    comments: post?._count?.comments,
+                    feature_image: post?.feature_image?.url || `https://img.youtube.com/vi/${extractVideoId(String(post?.yt_url))}/maxresdefault.jpg`,
+                    feature_image_alt: `https://img.youtube.com/vi/${extractVideoId(String(post?.yt_url))}/default.jpg`,
+                    description: post?.description,
+                    yt_url: post?.yt_url,
+                    published_at: post?.published_at,
+                    url: `/${hashids.encode(post?.id)}`
+                })),
+                ...posts?.bigPost?.map((post:any)=>({
+                    title: post?.title,
+                    category: post?.category?.title,
+                    comments: post?._count?.comments,
+                    feature_image: post?.feature_image?.url || `https://img.youtube.com/vi/${extractVideoId(String(post?.yt_url))}/maxresdefault.jpg`,
+                    feature_image_alt: `https://img.youtube.com/vi/${extractVideoId(String(post?.yt_url))}/default.jpg`,
+                    description: post?.description,
+                    yt_url: post?.yt_url,
+                    published_at: post?.published_at,
+                    url: `/${hashids.encode(post?.id)}`
+                }))
+            ] || [],
         },
         {
             block_name: "feature_category_block",

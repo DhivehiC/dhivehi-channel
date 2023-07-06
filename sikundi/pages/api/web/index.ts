@@ -9,6 +9,52 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         if (token !== process.env.FRONTEND_TOKEN) {
             return res.status(401).json({ error: "unauthorized token" })
         } else {
+            const mainPost = await prisma.posts.findMany({
+                select: {
+                    id: true,
+                    title: true,
+                    category: {
+                        select: {
+                            title: true,
+                            latin_title: true
+                        }
+                    },
+                    yt_url: true,
+                    feature_image: {
+                        select: {
+                            url: true
+                        }
+                    },
+                    _count: {
+                        select: {
+                            comments: {
+                                where: {
+                                    published_at: {
+                                        not: null
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    published_at: true
+                },
+                orderBy: {
+                    published_at: "desc"
+                },
+                take: 1,
+                where: {
+                    post_tags: {
+                        some: {
+                            tag: {
+                                latin_title: "main"
+                            }
+                        }
+                    },
+                    published_at: {
+                        lte: new Date()
+                    },
+                }
+            })
             const bigPost = await prisma.posts.findMany({
                 select: {
                     id: true,
@@ -27,7 +73,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     },
                     _count: {
                         select: {
-                            comments: true
+                            comments: {
+                                where: {
+                                    published_at: {
+                                        not: null
+                                    }
+                                }
+                            }
                         }
                     },
                     published_at: true
@@ -35,7 +87,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 orderBy: {
                     published_at: "desc"
                 },
-                take: 4,
+                take: 3,
                 where: {
                     post_tags: {
                         some: {
@@ -97,7 +149,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     },
                     _count: {
                         select: {
-                            comments: true
+                            comments: {
+                                where: {
+                                    published_at: {
+                                        not: null
+                                    }
+                                }
+                            }
                         }
                     },
                     yt_url: true,
@@ -150,6 +208,36 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     published_at: {
                         lte: new Date()
                     },
+                    AND: [
+                        ...smallPost?.map((post)=>{
+                            return {
+                                id: {
+                                    not: post?.id
+                                }
+                            }
+                        }),
+                        ...mediumPost?.map((post)=>{
+                            return {
+                                id: {
+                                    not: post?.id
+                                }
+                            }
+                        }),
+                        ...bigPost?.map((post)=>{
+                            return {
+                                id: {
+                                    not: post?.id
+                                }
+                            }
+                        }),
+                        ...mainPost?.map((post)=>{
+                            return {
+                                id: {
+                                    not: post?.id
+                                }
+                            }
+                        })
+                    ]
                 }
             })
             const postsByCategory = await prisma.categories.findMany({
@@ -199,6 +287,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                                             not: post?.id
                                         }
                                     }
+                                }),
+                                ...mainPost?.map((post)=>{
+                                    return {
+                                        id: {
+                                            not: post?.id
+                                        }
+                                    }
                                 })
                             ]
                         },
@@ -209,7 +304,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     }
                 }
             })
-            res.status(200).json({ bigPost, smallPost, mediumPost, postsByCategory, topPost })
+            res.status(200).json({ bigPost, smallPost, mediumPost, postsByCategory, topPost, mainPost })
         }
     } catch (error) {
         return res.status(500).json({ error })

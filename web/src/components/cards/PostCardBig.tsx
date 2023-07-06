@@ -51,5 +51,6 @@ export interface PostCardBigProps {
     className?: string
     featureImageClassName?: string
     titleClassName?: string
+    yt_url?: string
     categoryClassName?: string
 }

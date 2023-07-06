@@ -9,8 +9,12 @@ import RichText from '@DhivehiChannel/components/blocks/RichText'
 import AdCard from '@DhivehiChannel/components/cards/AdCard'
 import CommentForm from '@DhivehiChannel/components/forms/CommentForm'
 import CommentGroup from '@DhivehiChannel/components/blocks/CommentGroup'
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
+import 'dayjs/locale/dv'
 
 const Index:NextPage<Props> = (props) => {
+    dayjs.extend(relativeTime)
     const [sentComments, setSentComments] = useState<
         {
             id: Number
@@ -33,13 +37,21 @@ const Index:NextPage<Props> = (props) => {
             }} twitter={{ cardType: "summary_large_image" }} />
             <div className='container p-4 mx-auto'>
                 <h1 className='text-3xl font-black mb-8 text-gray-600 leading-normal'>{props.article.long_title}</h1>
+                <div className='flex items-center gap-3 mb-4'>
+                    <div className='h-10 w-10 rounded-full bg-gray-300'>
+
+                    </div>
+                    <h6 className='text-base font-normal mb-0 text-gray-400 leading-normal'>{props.article.created_by.user_name}</h6>
+                </div>
+                <h6 className='text-base font-normal mb-8 text-gray-400 leading-normal'>{dayjs(props.article.published_at).locale('dv').fromNow().split(" ").reverse().join(" ")}</h6>
                 {
                     props?.article?.feature_image?.url ?
-                    <div className='relative aspect-video w-full overflow-hidden rounded-lg mb-8'>
+                    <div className='relative aspect-video w-full overflow-hidden rounded-lg mb-1'>
                         <Image src={props.article.feature_image.url} alt={props.article.long_title} fill className='object-cover' />
                     </div> :
-                    <iframe src={`https://www.youtube.com/embed/${extractVideoId(String(props.article.yt_url))}`} className='aspect-video w-full rounded-lg mb-8 bg-gray-400' frameBorder="0" allowFullScreen />
+                    <iframe src={`https://www.youtube.com/embed/${extractVideoId(String(props.article.yt_url))}`} className='aspect-video mb-1 w-full rounded-lg bg-gray-400' frameBorder="0" allowFullScreen />
                 }
+                <p className='mb-8 text-gray-400 text-base'>{props?.article?.feature_image_caption}</p>
                 <div className='grid grid-cols-12 mb-6'>
                     <RichText className="lg:col-span-8 col-span-12 mb-4">
                         {props.article?.content?.replace(
@@ -107,8 +119,8 @@ interface Props {
         }
         feature_image: {
             url: string
-            feature_image_caption: string
         }
+        feature_image_caption: string
         content: string
         post_tags: {
             tag: {
