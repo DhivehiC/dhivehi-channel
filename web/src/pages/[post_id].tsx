@@ -53,36 +53,38 @@ const Index:NextPage<Props> = (props) => {
                 }
                 <p className='mb-8 text-gray-400 text-base'>{props?.article?.feature_image_caption}</p>
                 <div className='grid grid-cols-12 mb-6'>
-                    <RichText className="lg:col-span-8 col-span-12 mb-4">
-                        {props.article?.content?.replace(
-                            /&nbsp;|&zwnj;|&raquo;|&laquo;|&gt;/g,
-                            " "
-                            )}
-                    </RichText>
+                    <div className="lg:col-span-8 col-span-12 mb-4">
+                        <RichText className='w-full mb-8'>
+                            {props.article?.content?.replace(
+                                /&nbsp;|&zwnj;|&raquo;|&laquo;|&gt;/g,
+                                " "
+                                )}
+                        </RichText>
+                        <CommentForm
+                            className='mb-8 max-w-xl'
+                            apiKey={String(process.env.NEXT_PUBLIC_TOKEN)}
+                            apiUrl={`/api/comment/${props.article.id}`}
+                            OnSucess={(res:any)=>{
+                                setSentComments((data) => [
+                                    ...data,
+                                    {
+                                        id: 0,
+                                        created_by: `${res?.created_by}`,
+                                        content: `${res?.content}`,
+                                        notApproved: true,
+                                    },
+                                ])
+                            }}
+                        />
+                        <CommentGroup
+                            className="max-w-xl"
+                            comments={[...props.article.comments, ...sentComments]}
+                        />
+                    </div>
                     <div className='lg:col-span-4 col-span-12'>
                         <AdCard className='' />
                     </div>
                 </div>
-                <CommentForm
-                    className='mb-8 max-w-xl'
-                    apiKey={String(process.env.NEXT_PUBLIC_TOKEN)}
-                    apiUrl={`/api/comment/${props.article.id}`}
-                    OnSucess={(res:any)=>{
-                        setSentComments((data) => [
-                            ...data,
-                            {
-                                id: 0,
-                                created_by: `${res?.created_by}`,
-                                content: `${res?.content}`,
-                                notApproved: true,
-                            },
-                        ])
-                    }}
-                />
-                <CommentGroup
-                    className="max-w-xl"
-                    comments={[...props.article.comments, ...sentComments]}
-                />
             </div>
         </Fragment>
     )

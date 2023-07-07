@@ -128,6 +128,7 @@ export const getServerSideProps:GetServerSideProps<Props> = async (ctx) => {
                 return ({
                     block_name: "category_block",
                     title: category?.title,
+                    description: category?.description,
                     load_more_url: `/category/${category?.latin_title}`,
                     posts: (category?.posts?.map((post:any)=>({
                         title: post?.title,
@@ -144,6 +145,7 @@ export const getServerSideProps:GetServerSideProps<Props> = async (ctx) => {
             return ({
                 block_name: "ad_category_block",
                 title: category?.title,
+                description: category?.description,
                 load_more_url: `/category/${category?.latin_title}`,
                 posts: (category?.posts?.map((post:any)=>({
                     title: post?.title,

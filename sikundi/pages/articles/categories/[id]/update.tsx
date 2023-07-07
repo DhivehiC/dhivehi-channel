@@ -47,6 +47,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
                 id: true,
                 title: true,
                 latin_title: true,
+                description: true,
                 published_at: true
             }
         })

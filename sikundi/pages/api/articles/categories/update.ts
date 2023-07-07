@@ -17,6 +17,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                         const category:any = await update(req.body.id, {
                             title: req.body.title,
                             latin_title: req.body.latin_title,
+                            description: req.body?.description,
                             email: user.email,
                             published_at: req.body.status === "published" ? (req.body?.published_at ? new Date(req.body?.published_at) : new Date()) : null,
                             deleted_at: req.body.status === "deleted" ? new Date() : null,
@@ -35,7 +36,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                                 ]
                             })
                         })
-                        revalidation = await revalidationRequest.json()
+                        revalidation = revalidationRequest.status === 200 ? await revalidationRequest?.json() : null
 
                         res.status(200).json({ 
                             revalidation,
@@ -63,6 +64,7 @@ interface inputsSchema {
     title: string
     latin_title: string
     email: string
+    description?: string
     deleted_at?: Date | null
     published_at?: Date | null
 }
@@ -82,10 +84,12 @@ async function update(id: number, inputs:inputsSchema) {
             if (Object.keys(validationErrors).length) {
                 reject({ validationErrors })
             } else {
+                
                 const category = await prisma.categories.update({
                     data: {
                         title: inputs?.title,
                         latin_title: inputs?.latin_title,
+                        description: inputs?.description,
                         published_at: inputs?.published_at,
                         deleted_at: inputs?.deleted_at,
                         created_by: {
@@ -97,6 +101,7 @@ async function update(id: number, inputs:inputsSchema) {
                     select: {
                         title: true,
                         latin_title: true,
+                        description: true,
                         created_by: {
                             select: {
                                 email: true

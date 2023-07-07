@@ -115,6 +115,7 @@ model Categories {
   id                 Int       @id @default(autoincrement())
   title              String    @unique
   latin_title        String    @unique
+  description        String?
   posts              Posts[]   @relation(name: "CategoriesToPost")
   created_at         DateTime  @default(now())
   published_at       DateTime?

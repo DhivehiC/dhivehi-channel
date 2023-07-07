@@ -9,6 +9,7 @@ import Input from '../Input'
 import Label from '../Label'
 import ChevronDownIcon from '@heroicons/react/24/solid/ChevronDownIcon'
 import dayjs from 'dayjs'
+import TextArea from '../TextArea';
 
 interface Props {
     type: 'create' | 'update'
@@ -16,6 +17,7 @@ interface Props {
         id?: string
         title?: string
         latin_title?: string
+        description?: string
         published_at?: string
     }
 }
@@ -23,6 +25,7 @@ interface Props {
 type Inputs = {
     title: string,
     latin_title: string,
+    description?: string,
     published_at: string
 }
 
@@ -134,6 +137,15 @@ const CategoryForm:FC<Props> = (props) => {
                         {...register("latin_title", {
                             required: true
                         })} 
+                    />
+                    <Label htmlFor='discription'>Description</Label>
+                    <TextArea 
+                        id='description' placeholder='Description' rows={5} dir={'rtl'}
+                        defaultValue={props.data?.description}
+                        errors={errors?.description}
+                        {...register('description', {
+                            required: false
+                        })}
                     />
                 </div>
             </form>    

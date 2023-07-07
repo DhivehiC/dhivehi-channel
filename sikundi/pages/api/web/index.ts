@@ -244,6 +244,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 select: {
                     title: true,
                     latin_title: true,
+                    description: true,
                     posts: {
                         select: {
                             id: true,

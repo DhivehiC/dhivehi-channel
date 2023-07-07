@@ -17,6 +17,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                         const category:any = await create({
                             title: req.body.title,
                             latin_title: req.body.latin_title,
+                            description: req.body?.description,
                             email: user.email
                         })
                         res.status(200).json({ category, notification: { title: "Category Created", content: `${category.title} has been successfully drafted in the cms`, type: "success" } })
@@ -36,6 +37,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 interface inputsSchema {
     title: string
     latin_title: string
+    description?: string
     email: string
 }
 async function create(inputs:inputsSchema) {
@@ -58,6 +60,7 @@ async function create(inputs:inputsSchema) {
                     data: {
                         title: inputs.title,
                         latin_title: inputs.latin_title,
+                        description: inputs?.description,
                         created_by: {
                             connect: {
                                 email: inputs.email
@@ -68,6 +71,7 @@ async function create(inputs:inputsSchema) {
                         id: true,
                         title: true,
                         latin_title: true,
+                        description: true,
                         created_by: {
                             select: {
                                 email: true

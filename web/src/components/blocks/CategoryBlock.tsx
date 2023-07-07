@@ -7,12 +7,13 @@ const CategoryBlock:FC<CategoryBlockProps> = (props) => {
     return (
         <Fragment>
             <div className='container mx-auto px-4 mb-12 lg:mb-24 flex flex-col items-center'>
-                <div className='flex items-center gap-x-6 mb-6 lg:mb-8 w-full'>
+                <div className='flex items-center gap-x-6 mb-3 w-full'>
                     <h6 className='text-secondary font-black text-2xl'>
                         {props.title}
                     </h6>
                     <hr className='flex-1 border-secondary' />
                 </div>
+                <p className='mb-6 lg:mb-8 w-full text-gray-500 font-medium'>{props?.description}</p>
                 <div className='grid grid-cols-4 gap-4 mb-8 w-full'>
                     {props?.posts?.map((post, index)=>(
                         <PostCardBig key={index} {...post} 
@@ -43,6 +44,7 @@ export default CategoryBlock
 export interface CategoryBlockProps {
     block_name: "category_block",
     title: string,
+    description: string,
     load_more_url: string,
     posts: PostCardBigProps[]
 }

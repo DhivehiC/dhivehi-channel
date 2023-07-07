@@ -27,7 +27,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                         },
                         category: {
                             select: {
-                                title: true
+                                title: true,
+                                latin_title: true
                             }
                         },
                         published_at: true
@@ -60,7 +61,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 const category = await prisma.categories.findFirst({
                     select: {
                         title: true,
-                        latin_title: true
+                        latin_title: true,
+                        description: true
                     },
                     where: {
                         latin_title: String(category_slug)

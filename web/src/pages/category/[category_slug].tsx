@@ -23,13 +23,14 @@ const Index:NextPage<Props> = (props) => {
                 ]
             }} twitter={{ cardType: "summary_large_image" }} />
             <div className='container mx-auto px-4 mb-12 lg:mb-24 pt-8 lg:pt-12'>
-                <div className='flex items-center gap-x-6 mb-6 lg:mb-8'>
+                <div className='flex items-center gap-x-6 mb-3'>
                     <hr className='flex-1 border-secondary' />
                     <h6 className='text-secondary font-black text-2xl'>
                         {props.category.title}
                     </h6>
                     <hr className='flex-1 border-secondary' />
                 </div>
+                <p className='mb-6 lg:mb-8 w-full text-gray-500 font-medium text-center'>{props?.category?.description}</p>
                 <div className='grid grid-cols-4 gap-4 mb-8 lg:mb-14'>
                     {props?.articles?.map((post, index)=>(
                         <PostCardBig key={index} {...post} 
@@ -67,11 +68,11 @@ export const getServerSideProps:GetServerSideProps<Props> = async (ctx) => {
     
 
     return { 
-        props: {
+        props: JSON.parse(JSON.stringify({
             ...category,
             articles: category?.articles?.map((post:any)=>({
                 title: post?.title,
-                category: category?.title,
+                category: post?.category?.title,
                 comments: "",
                 feature_image: post?.feature_image?.url || `https://img.youtube.com/vi/${extractVideoId(String(post?.yt_url))}/maxresdefault.jpg`,
                 feature_image_alt: `https://img.youtube.com/vi/${extractVideoId(String(post?.yt_url))}/default.jpg`,
@@ -80,7 +81,7 @@ export const getServerSideProps:GetServerSideProps<Props> = async (ctx) => {
                 published_at: post?.published_at,
                 url: `/${hashids.encode(post?.id)}`
             })) || []
-        }
+        }))
     }
 }
 
@@ -104,6 +105,7 @@ interface Props {
     category: {
         title: string
         latin_title: string
+        description: string
     },
     totalPages: number
     current: number
