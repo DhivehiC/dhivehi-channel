@@ -110,7 +110,7 @@ export const getServerSideProps:GetServerSideProps<Props> = async (ctx) => {
         },
         {
             block_name: "carousel_block",
-            title: "މި އަހަރުގެ އެންމެ މަގުބޫލި ޕްރޯގްރާމްތަށް",
+            title: "މި އަހަރުގެ އެންމެ މަގުބޫލު ޕްރޯގްރާމްތަށް",
             sub_title: "އެންމެ ފަހު 30 ދުވަސް",
             posts: posts?.topPost?.map((post:any)=>({
                 title: post?.title,
