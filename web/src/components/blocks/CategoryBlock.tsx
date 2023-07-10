@@ -21,10 +21,10 @@ const CategoryBlock:FC<CategoryBlockProps> = (props) => {
                                 index === 0 ? 'lg:col-span-2 lg:row-span-2 col-span-4' : 'lg:col-span-1 col-span-2',
                             ])}
                             featureImageClassName={twMerge([
-                                index === 0 && 'lg:h-[calc(83%)]'
+                                index === 0 && 'lg:flex-1'
                             ])} 
                             titleClassName={twMerge([
-                                index === 0 && 'lg:text-4xl lg:mb-5',
+                                index === 0 && 'lg:text-4xl lg:mb-5 lg:leading-normal',
                                 'text-start'
                             ])} 
                             categoryClassName={twMerge('text-start')} 
