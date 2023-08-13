@@ -18,7 +18,7 @@ const nextConfig = {
         },
         {
           protocol: 'https',
-          hostname: 'cdn.aslu.com.mv',
+          hostname: 'cdn.dhivehichannel.mv',
           // port: '',
           pathname: '/**', 
         },
