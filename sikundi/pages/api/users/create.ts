@@ -66,7 +66,7 @@ async function create(inputs:inputsSchema) {
             if (Object.keys(validationErrors).length) {
                 reject({ validationErrors })
             } else {
-                const password = await bcrypt.hash(`${inputs.first_name}@aslu`, 10)
+                const password = await bcrypt.hash(`${inputs.first_name}@dhivehichannel`, 10)
                 const user = await prisma.users.create({
                     data: {
                         first_name: inputs.first_name,
