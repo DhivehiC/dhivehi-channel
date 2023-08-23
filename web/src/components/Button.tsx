@@ -21,7 +21,7 @@ export default Button
 interface Props {
     onClick?: MouseEventHandler,
     className?: string,
-    loading: boolean,
+    loading?: boolean,
     children: ReactNode,
     [name:string]: unknown
 }
