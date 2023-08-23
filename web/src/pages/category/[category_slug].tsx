@@ -33,7 +33,7 @@ const Index:NextPage<Props> = (props) => {
             const data:any = fetchData.data
             const updatedPosts = [...posts, ...data?.articles]
             setPosts(updatedPosts)
-            setPage((page)=>page++)
+            setPage(page+1)
         } catch (error) {
             console.error(error)
         } finally {
