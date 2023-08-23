@@ -30,7 +30,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     try {
         const token = req.headers['authorization']?.split(' ')[1]
         if (token) {
-            const data = await axios.get(`${process.env.BACKEND_URL}/web/category/${req.query?.slug}?page=${req.query?.page}`, {
+            const data = await axios.get(`${process.env.BACKEND_URL}/category/${req.query?.slug}?page=${req.query?.page}`, {
                 headers: {
                     authorization: `Bearer ${process.env.FRONTEND_TOKEN}`
                 }
