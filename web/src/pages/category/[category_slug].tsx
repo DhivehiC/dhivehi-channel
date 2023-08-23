@@ -63,7 +63,7 @@ const Index:NextPage<Props> = (props) => {
                 </div>
                 <p className='mb-6 lg:mb-8 w-full text-gray-500 font-medium text-center'>{props?.category?.description}</p>
                 <div className='grid grid-cols-4 gap-4 mb-8 lg:mb-14'>
-                    {props?.articles?.map((post, index)=>(
+                    {posts?.map((post, index)=>(
                         <PostCardBig key={index} {...post} 
                             className={twMerge([
                                 index === 1 ? 'lg:col-span-2 lg:row-span-2 lg:flex lg:flex-col' : 'lg:col-span-1',
