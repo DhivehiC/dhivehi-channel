@@ -5,7 +5,7 @@ const Button:FC<Props> = (props) => {
     return (
         <button {...props} disabled={props.loading} onClick={props?.onClick} className={twMerge('bg-primary text-white py-3 px-6 rounded-lg hover:opacity-75 active:opacity-50', props?.className)}>
             {
-                props.loading ?
+                !props.loading ?
                 props.children :
                 <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
