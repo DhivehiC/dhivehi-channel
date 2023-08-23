@@ -1,6 +1,6 @@
 import { GetServerSideProps, NextPage } from 'next'
 import { NextSeo } from 'next-seo'
-import React, { Fragment } from 'react'
+import React, { Fragment, MouseEventHandler, useEffect, useState } from 'react'
 import Hashids from 'hashids'
 import axios from 'axios'
 import 'dayjs/locale/dv'
@@ -8,8 +8,39 @@ import Button from '@DhivehiChannel/components/Button'
 import { twMerge } from 'tailwind-merge'
 import PostCardBig from '@DhivehiChannel/components/cards/PostCardBig'
 import { extractVideoId } from '@DhivehiChannel/libs/youtube'
+import { useRouter } from 'next/router'
 
 const Index:NextPage<Props> = (props) => {
+    const router = useRouter()
+    const { slug } = router.query
+    const [posts, setPosts] = useState<article[] | []>([])
+    const [page, setPage] = useState(1)
+    const [loading, setLoading] = useState(false)
+
+    useEffect(()=>{
+        setPage(1)
+        setPosts(props?.articles)
+    }, [slug, props?.articles])
+
+    const loadMore:MouseEventHandler<HTMLButtonElement> = async (event) => {
+        try {
+            setLoading(true)
+            const fetchData = await axios.get(`/api/category/${props?.category?.latin_title}?page=${page+1}`, {
+                headers: {
+                    authorization: `Bearer ${process.env.FRONTEND_TOKEN}`
+                }
+            })
+            const data:any = fetchData.data
+            const updatedPosts = [...posts, ...data?.articles]
+            setPosts(updatedPosts)
+            setPage(parseInt(String(data?.current)))
+        } catch (error) {
+            console.error(error)
+        } finally {
+            setLoading(false)
+        }
+    }
+
 
     return (
         <Fragment>
@@ -47,7 +78,7 @@ const Index:NextPage<Props> = (props) => {
                         />
                     ))}
                 </div>
-                <Button className='text-center min-w-[200px] mx-auto block'>
+                <Button className='text-center min-w-[200px] mx-auto block' onClick={loadMore} loading={loading}>
                     {"އިތުރަށް ލޯރޑް ކުރައްވާ"}
                 </Button>
             </div>       
@@ -87,21 +118,7 @@ export const getServerSideProps:GetServerSideProps<Props> = async (ctx) => {
 
 
 interface Props {
-    articles: {
-        title: string,
-        description: string,
-        category: string,
-        published_at: string,
-        comments: number,
-        feature_image: string,
-        feature_image_alt: string,
-        url: string,
-        className?: string
-        featureImageClassName?: string
-        titleClassName?: string
-        yt_url?: string
-        categoryClassName?: string
-    }[]
+    articles: article[]
     category: {
         title: string
         latin_title: string
@@ -109,4 +126,20 @@ interface Props {
     },
     totalPages: number
     current: number
+}
+
+interface article {
+    title: string,
+    description: string,
+    category: string,
+    published_at: string,
+    comments: number,
+    feature_image: string,
+    feature_image_alt: string,
+    url: string,
+    className?: string
+    featureImageClassName?: string
+    titleClassName?: string
+    yt_url?: string
+    categoryClassName?: string
 }
