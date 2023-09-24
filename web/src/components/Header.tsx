@@ -9,6 +9,7 @@ import { useDebounce, useOnClickOutside } from 'usehooks-ts'
 import transliterate from '@DhivehiChannel/libs/transliterate'
 import axios from 'axios'
 import dayjs from 'dayjs'
+// @ts-ignore
 import HijriDate from 'hijri-date/lib/safe';
 import useSWR from 'swr'
 
