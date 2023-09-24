@@ -33,16 +33,8 @@ const index:NextPage<Props> = (props) => {
                     <FeatureCategoryBlock key={index} {...blockDetails} />
                 ||
 
-                (blockDetails.block_name === "ad_category_block" && blockDetails.posts?.length > 0) && 
-                    <AdCategoryBlock key={index} {...blockDetails} />
-                ||
-
                 (blockDetails.block_name === "carousel_block" && blockDetails.posts?.length > 0) && 
                     <CarouselBlock key={index} {...blockDetails} />
-                ||
-
-                (blockDetails.block_name === "category_block" && blockDetails.posts?.length > 0) && 
-                    <CategoryBlock key={index} {...blockDetails} />
                 ||
 
                 (blockDetails.block_name === "feature_post_block" && blockDetails.post) && 
@@ -123,42 +115,6 @@ export const getServerSideProps:GetServerSideProps<Props> = async (ctx) => {
                 url: `/${hashids.encode(post?.id)}`
             })) || []
         },
-        ...(posts?.postsByCategory?.map((category:any, index:number)=>{
-            if (index % 2 === 0) {
-                return ({
-                    block_name: "category_block",
-                    title: category?.title,
-                    description: category?.description,
-                    load_more_url: `/category/${category?.latin_title}`,
-                    posts: (category?.posts?.map((post:any)=>({
-                        title: post?.title,
-                        category: post?.category?.title,
-                        comments: post?._count?.comments,
-                        feature_image: post?.feature_image?.url || `https://img.youtube.com/vi/${extractVideoId(String(post?.yt_url))}/maxresdefault.jpg`,
-                        feature_image_alt: `https://img.youtube.com/vi/${extractVideoId(String(post?.yt_url))}/default.jpg`,
-                        description: post?.description,
-                        published_at: post?.published_at,
-                        url: `/${hashids.encode(post?.id)}`
-                    }))) || []
-                })
-            }
-            return ({
-                block_name: "ad_category_block",
-                title: category?.title,
-                description: category?.description,
-                load_more_url: `/category/${category?.latin_title}`,
-                posts: (category?.posts?.map((post:any)=>({
-                    title: post?.title,
-                    category: post?.category?.title,
-                    comments: post?._count?.comments,
-                    feature_image: post?.feature_image?.url || `https://img.youtube.com/vi/${extractVideoId(String(post?.yt_url))}/maxresdefault.jpg`,
-                    feature_image_alt: `https://img.youtube.com/vi/${extractVideoId(String(post?.yt_url))}/default.jpg`,
-                    description: post?.description,
-                    published_at: post?.published_at,
-                    url: `/${hashids.encode(post?.id)}`
-                }))) || []
-            })
-        }) || []),
         {
             block_name: "feature_post_block",
             title: "މި އަހަރުގެ އެންމެ މަގުބޫލި ޕްރޯގްރާމްތަށް",

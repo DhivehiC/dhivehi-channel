@@ -8,6 +8,8 @@ import { useRouter } from 'next/router'
 import { useDebounce, useOnClickOutside } from 'usehooks-ts'
 import transliterate from '@DhivehiChannel/libs/transliterate'
 import axios from 'axios'
+import dayjs from 'dayjs'
+import 'hijri-date'
 
 const Header:FC<Props> = (props) => {
     const [searchBar, setSearchBar] = useState(false)
@@ -70,11 +72,17 @@ const Header:FC<Props> = (props) => {
 
     return (
         <header className={twMerge([
-            'p-4 fixed top-0 w-full z-50 bg-transparent transition-all',
+            'fixed top-0 w-full z-50 bg-transparent transition-all',
             !isScrolledToTop && 'bg-[#00000095]',
             props?.className
         ])}>
-            <div className='container mx-auto grid grid-cols-12 gap-4 items-center px-4'>
+            <div className={"w-full bg-black"}>
+                <div className='container mx-auto px-4 py-2'>
+                    <h6>{dayjs(new Date()).toString()}</h6>
+                    <h6>{(new Date().toHijri())}</h6>
+                </div>
+            </div>
+            <div className='container mx-auto grid grid-cols-12 gap-4 items-center px-8 py-4'>
                 <div className={twMerge('col-span-3 opacity-100 lg:opacity-100 transition-all', searchBar && 'opacity-0')}>
                     <Link href={"/"} className='w-16 h-16 relative rounded-full border border-accent block'>
                         <Image src={'/logo.png'} alt='logo' fill priority />
