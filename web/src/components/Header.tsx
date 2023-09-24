@@ -9,7 +9,7 @@ import { useDebounce, useOnClickOutside } from 'usehooks-ts'
 import transliterate from '@DhivehiChannel/libs/transliterate'
 import axios from 'axios'
 import dayjs from 'dayjs'
-import 'hijri-date'
+import HijriDate,{toHijri} from 'hijri-date/lib/safe';
 
 const Header:FC<Props> = (props) => {
     const [searchBar, setSearchBar] = useState(false)
@@ -79,7 +79,7 @@ const Header:FC<Props> = (props) => {
             <div className={"w-full bg-black"}>
                 <div className='container mx-auto px-4 py-2'>
                     <h6>{dayjs(new Date()).toString()}</h6>
-                    <h6>{(new Date().toHijri())}</h6>
+                    <h6>{(new HijriDate())}</h6>
                 </div>
             </div>
             <div className='container mx-auto grid grid-cols-12 gap-4 items-center px-8 py-4'>
