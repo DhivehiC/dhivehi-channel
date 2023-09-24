@@ -171,7 +171,7 @@ const Header:FC<Props> = (props) => {
                         <Button className='flex items-center gap-4 relative px-4 bg-secondary'>
                             <HiBars3 className='text-xl' />
                         </Button>
-                        <div className='absolute p-4 bg-primary left-0 hidden group-focus-within:block'>
+                        <div className='absolute p-4 bg-white shadow-sm left-0 hidden group-focus-within:block'>
                             {(!error && menu !== undefined) ? menu?.slice(0, 6)?.map((item, index:number)=>(
                                 <Link href={item.url} key={index} className={twMerge(['font-bold text-lg text-gray-700 hover:opacity-70 active:opacity-50'])}>
                                     {item.name}
