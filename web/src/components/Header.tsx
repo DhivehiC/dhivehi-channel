@@ -20,6 +20,7 @@ export type MenuSchema = {
 
 const Header:FC<Props> = (props) => {
     const [searchBar, setSearchBar] = useState(false)
+    const [menuBar, setMenuBar] = useState(false)
     const [today, setToday] = useState("-")
     const [hijriToday, setHijriToday] = useState("-")
     const [loading, setLoading] = useState(false)
@@ -169,16 +170,16 @@ const Header:FC<Props> = (props) => {
                         </span>
                     </Button>
                     <div className='relative overflow-visible group'>
-                        <Button className='flex items-center gap-4 relative px-4 bg-secondary'>
+                        <Button className='flex items-center gap-4 relative px-4 bg-secondary' onClick={() => setMenuBar(!menuBar)}>
                             <HiBars3 className='text-xl' />
                         </Button>
-                        <div className='absolute p-4 bg-white shadow-sm border border-gray-300 left-0 hidden group-focus-within:block rounded-md mt-2'>
+                        {menuBar && <div className='absolute p-4 bg-white shadow-sm border border-gray-300 left-0 rounded-md mt-2'>
                             {(!error && menu !== undefined) ? menu?.slice(0, 6)?.map((item, index:number)=>(
                                 <Link href={item.url} key={index} className={twMerge(['font-bold text-lg text-gray-700 hover:opacity-70 active:opacity-50 block mb-2 min-w-[100px]'])}>
                                     {item.name}
                                 </Link>
                             )) : null}
-                        </div>
+                        </div>}
                     </div>
                 </div>
             </div>
