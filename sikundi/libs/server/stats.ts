@@ -1,5 +1,4 @@
 import { google } from 'googleapis';
-import key from './aslu-389507-10dca06b7642.json';
 // @ts-ignore
 import { startOfMonth, endOfMonth, subMonths, format } from 'date-fns';
 
@@ -39,7 +38,7 @@ export default async function state() {
         const scopes = ['https://www.googleapis.com/auth/analytics.readonly'];
 
         const authClient = await google.auth.getClient({
-            credentials: key,
+            credentials: {},
             scopes,
         });
 
