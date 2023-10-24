@@ -116,7 +116,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                                             await TelegramPost(article.latin_title, `${process.env.FRONTEND_URL}/${hashids.encode(article.id)}`)
                                         }
                                         if (req.body?.postToFacebook && article?.published_at) {
-                                            await facebookPost(`${article.latin_title} %0A %0AFollow Us On Twitter: https://twitter.com/aslunewsmv`, `${process.env.FRONTEND_URL}/${hashids.encode(article.id)}`)
+                                            await facebookPost(`${article.latin_title}`, `${process.env.FRONTEND_URL}/${hashids.encode(article.id)}`)
                                         }
                                         if (req.body?.postToTwitter && article?.published_at) {
                                             await twitterPost(article.latin_title, `${process.env.FRONTEND_URL}/${hashids.encode(article.id)}`)
@@ -155,8 +155,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                                         await TelegramPost(article.latin_title, `${process.env.FRONTEND_URL}/${hashids.encode(article.id)}`)
                                     }
                                     if (req.body?.postToFacebook && article?.published_at) {
-                                        const data = await facebookPost(`${article.latin_title}`, `${process.env.FRONTEND_URL}/${hashids.encode(article.id)}`)
-                                        console.log(data)
+                                        await facebookPost(`${article.latin_title}`, `${process.env.FRONTEND_URL}/${hashids.encode(article.id)}`)
                                     }
                                     if (req.body?.postToTwitter && article?.published_at) {
                                         await twitterPost(article.latin_title, `${process.env.FRONTEND_URL}/${hashids.encode(article.id)}`)
