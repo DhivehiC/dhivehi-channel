@@ -33,7 +33,16 @@ const Index:NextPage<Props> = (props) => {
                 description: props.article.description,
                 siteName: "Dhivehi Channel",
                 images: [
-                    { url: props?.article?.feature_image?.url }
+                    { 
+                        url:  `${
+                            process.env.NEXT_PUBLIC_CLOUD_URL
+                        }/api?image=${props.article?.feature_image?.url
+                            ?.replace(
+                                "https://cdn.dhivehichannel.mv/media/",
+                                ""
+                            )
+                            ?.replace(".jpg", "")}` 
+                    }
                 ]
             }} twitter={{ cardType: "summary_large_image" }} />
             <div className='container p-4 mx-auto'>
