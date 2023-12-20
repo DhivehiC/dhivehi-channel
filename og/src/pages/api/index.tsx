@@ -34,7 +34,7 @@ export default async function handler(req:NextRequest) {
                     height={630}
                 />
                 <img 
-                    src={`${process.env.NEXT_PUBLIC_URL}/images/ogs/og.svg`}
+                    src={`${process.env.NEXT_PUBLIC_URL}/images/ogs/og.png`}
                     style={{
                         height: '100%',
                         width: '100%',
